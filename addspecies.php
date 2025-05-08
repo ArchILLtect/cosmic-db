@@ -1,16 +1,16 @@
 <!--    Author: Nick Hanson
-        Version: 0.3
-        Date: 3/12/25
+        Version: 0.1
+        Date: 4/20/25
 -->
 <?php
     require_once('authorizeaccess.php');
     require_once('pagetitles.php');
-    $page_title = MR_ADD_MOVIE_PAGE;
+    $page_title = CDB_ADD_SPECIES_PAGE;
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Add a Movie</title>
+        <title>Add a Species</title>
         <link rel="stylesheet"
                 href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
                 integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
@@ -107,8 +107,8 @@
 
                         if(empty($movie_image_file_path))
                         {
-                            $movie_image_file_path = ML_UPLOAD_PATH
-                                    . ML_DEFAULT_MOVIE_FILENAME;
+                            $movie_image_file_path = CDB_UPLOAD_PATH
+                                    . CDB_DEFAULT_SPECIES_FILENAME;
                         }
 
                         $display_add_movie_form = false;

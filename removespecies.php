@@ -1,12 +1,12 @@
 <!--    Author: Nick Hanson
-        Version: 0.3
-        Date: 3/12/25
+	      Version: 0.3
+	      Date: 4/20/25
 -->
 <?php
     $required_access_level = 'admin';
     require_once('authorizeaccess.php');
     require_once('pagetitles.php');
-    $page_title = MR_REMOVE_MOVIE_PAGE;
+    $page_title = CDB_REMOVE_SPECIES_PAGE;
 ?>
 <html>
     <head>
@@ -95,8 +95,8 @@
 
                             if (empty($movie_image_file))
                             {
-                                $movie_image_file = ML_UPLOAD_PATH
-                                        . ML_DEFAULT_MOVIE_FILENAME;
+                                $movie_image_file = CDB_UPLOAD_PATH
+                                        . CDB_DEFAULT_SPECIES_FILENAME;
                             }
                     ?>
                     <h1><?= htmlspecialchars($row['title']) ?></h1>

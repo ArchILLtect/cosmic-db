@@ -1,11 +1,11 @@
 <!--    Author: Nick Hanson
-		Version: 0.3
-		Date: 4/15/25
+	      Version: 0.3
+	      Date: 4/20/25
 -->
 <!DOCTYPE html>
 <?php
 	require_once('pagetitles.php');
-	$page_title = MR_SIGNUP_PAGE;
+	$page_title = CDB_SIGNUP_PAGE;
 ?>
 <html>
 	<head>

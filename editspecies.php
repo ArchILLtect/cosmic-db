@@ -1,11 +1,11 @@
 <!--    Author: Nick Hanson
-        Version: 0.3
-        Date: 3/12/25
+        Version: 0.1
+        Date: 4/20/25
 -->
 <?php
     require_once('authorizeaccess.php');
     require_once('pagetitles.php');
-    $page_title = MR_EDIT_MOVIE_PAGE;
+    $page_title = CDB_EDIT_SPECIES_PAGE;
 ?>
 <!DOCTYPE html>
 <html>
@@ -59,8 +59,8 @@
                             
                             if (empty($movie_image_file))
                             {
-                                $movie_image_file_displayed = ML_UPLOAD_PATH
-                                        . ML_DEFAULT_MOVIE_FILENAME;
+                                $movie_image_file_displayed = CDB_UPLOAD_PATH
+                                        . CDB_DEFAULT_SPECIES_FILENAME;
                             }
                             else
                             {
@@ -105,8 +105,8 @@
 
                         if (empty($movie_image_file))
                         {
-                            $movie_image_file_displayed = ML_UPLOAD_PATH
-                                    . ML_DEFAULT_MOVIE_FILENAME;
+                            $movie_image_file_displayed = CDB_UPLOAD_PATH
+                                    . CDB_DEFAULT_SPECIES_FILENAME;
                         }
                         else
                         {

@@ -1,10 +1,14 @@
+<!--    Author: Nick Hanson
+	      Version: 0.3
+	      Date: 4/20/25
+-->
 <?php
     // Page Titles
-    define('MR_HOME_PAGE', 'Movie Reservations');
-    define('MR_DETAILS_PAGE', 'Details - Movie Reservations');
-    define('MR_SIGNUP_PAGE', 'Sign Up - Movie Reservations');
-    define('MR_LOGIN_PAGE', 'Login - Movie Reservations');
-    define('MR_UNAUTHORIZED_ACCESS_PAGE', 'Unauthorized Access - Movie Reservations');
-    define('MR_ADD_MOVIE_PAGE', 'Add Movie - Movie Reservations');
-    define('MR_EDIT_MOVIE_PAGE', 'Edit Movie - Movie Reservations');
-    define('MR_REMOVE_MOVIE_PAGE', 'Remove Movie - Movie Reservations');
+    define('CDB_HOME_PAGE', 'Cosmic Database');
+    define('CDB_DETAILS_PAGE', 'Details - Cosmic Database');
+    define('CDB_SIGNUP_PAGE', 'Sign Up - Cosmic Database');
+    define('CDB_LOGIN_PAGE', 'Login - Cosmic Database');
+    define('CDB_UNAUTHORIZED_ACCESS_PAGE', 'Unauthorized Access - Cosmic Database');
+    define('CDB_ADD_SPECIES_PAGE', 'Add Species - Cosmic Database');
+    define('CDB_EDIT_SPECIES_PAGE', 'Edit Species - Cosmic Database');
+    define('CDB_REMOVE_SPECIES_PAGE', 'Remove Species - Cosmic Database');

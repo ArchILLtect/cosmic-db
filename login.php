@@ -1,11 +1,11 @@
 <!--    Author: Nick Hanson
-        Version: 0.4
-        Date: 4/15/25
+        Version: 0.1
+        Date: 4/20/25
 -->
 <?php
 	session_start();
 	require_once('pagetitles.php');
-	$page_title = MR_LOGIN_PAGE;
+	$page_title = CDB_LOGIN_PAGE;
 ?>
 <!DOCTYPE html>
 <html>

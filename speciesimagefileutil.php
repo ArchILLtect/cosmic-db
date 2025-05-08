@@ -1,9 +1,9 @@
 <!--    Author: Nick Hanson
-        Version: 0.3
-        Date: 3/25/25
+	      Version: 0.3
+	      Date: 4/20/25
 -->
 <?php
-    require_once 'movielistingfileconstants.php';
+    require_once 'specieslistingfileconstants.php';
 
     /** 
      * Purpose:         Validates an uploaded movie image file
@@ -26,9 +26,9 @@
         if (isset($_FILES) && $_FILES['movie_image_file']['error'] == UPLOAD_ERR_OK)
         {
             // Check for uploaded file < Max file size AND an acceptable image type
-            if ($_FILES['movie_image_file']['size'] > ML_MAX_FILE_SIZE)
+            if ($_FILES['movie_image_file']['size'] > CDB_MAX_FILE_SIZE)
             {
-                $error_message = "The movie file image MUST be less than " . ML_MAX_FILE_SIZE . " Bytes";
+                $error_message = "The movie file image MUST be less than " . CDB_MAX_FILE_SIZE . " Bytes";
             }
             
             $image_type = $_FILES['movie_image_file']['type'];
@@ -77,7 +77,7 @@
         // Check for $_FILES being set and no errors.
         if (isset($_FILES) && $_FILES['movie_image_file']['error'] == UPLOAD_ERR_OK)
         {
-            $movie_file_path = ML_UPLOAD_PATH . $_FILES['movie_image_file']['name'];
+            $movie_file_path = CDB_UPLOAD_PATH . $_FILES['movie_image_file']['name'];
         
             if (!move_uploaded_file($_FILES['movie_image_file']['tmp_name'], $movie_file_path))
             {
