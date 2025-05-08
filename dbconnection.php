@@ -5,6 +5,7 @@
 <?php
     // Database connection constants
     define('DB_HOST', 'localhost');
-    define('DB_USER', 'student');
-    define('DB_PASSWORD', 'student');
-    define('DB_NAME', 'cosmic_db');
+    define('DB_USER', 'root');
+    define('DB_PASSWORD', '');
+    define('DB_NAME', 'cosmic-db');
+    define('DB_PORT', '3308');

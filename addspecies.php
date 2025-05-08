@@ -51,7 +51,7 @@
                         $species_name = filter_var($_POST['species_name'],
                                 FILTER_SANITIZE_SPECIAL_CHARS);
                         $species_description = filter_var($_POST['species_description'],
-                                FILTER_SANITIZE_NUMBER_INT);
+                                FILTER_SANITIZE_SPECIAL_CHARS);
                         $species_homeworld = filter_var($_POST['species_homeworld'],
                                 FILTER_SANITIZE_SPECIAL_CHARS);
                         $checked_species_traits = $_POST['species_trait_checkbox'];
@@ -75,14 +75,18 @@
                         if(empty($file_error_message))
                         {
 
-                        $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
+                            $dbc = mysqli_connect(  DB_HOST,
+                                    DB_USER,
+                                    DB_PASSWORD,
+                                    DB_NAME,
+                                    DB_PORT)
                                 or trigger_error('Error connecting to MySQL server for '
                                 . DB_NAME, E_USER_ERROR);
                         
                         $species_image_file_path = addSpeciesImageFileReturnPathLocation();
 
                         $sql = "INSERT INTO species (name, description, homeworld, "
-                                . "trait, image_file) VALUES (?, ?, ?, ?, ?)";
+                                . "traits, image_file) VALUES (?, ?, ?, ?, ?)";
                         
                         $stmt = mysqli_prepare($dbc, $sql);
 

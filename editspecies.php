@@ -28,7 +28,11 @@
                     require_once('dbconnection.php');
                     require_once('speciesimagefileutil.php');
 
-                    $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
+                    $dbc = mysqli_connect(  DB_HOST,
+                                            DB_USER,
+                                            DB_PASSWORD,
+                                            DB_NAME,
+                                            DB_PORT)
                                 or trigger_error('Error connecting to MySQL server for '
                                 . DB_NAME, E_USER_ERROR);
 
@@ -80,14 +84,14 @@
                         $species_name = filter_var($_POST['species_name'],
                                 FILTER_SANITIZE_SPECIAL_CHARS);
                         $species_description = filter_var($_POST['species_description'],
-                                FILTER_SANITIZE_NUMBER_INT);
+                                FILTER_SANITIZE_SPECIAL_CHARS);
                         $species_homeworld = filter_var($_POST['species_homeworld'],
                                 FILTER_SANITIZE_SPECIAL_CHARS);
                         $checked_species_traits = $_POST['species_trait_checkbox'];
                         $id_to_update = filter_var($_POST['id_to_update'],
                                 FILTER_SANITIZE_NUMBER_INT);
                         $species_image_file = filter_var($_POST['species_image_file'],
-                                FILTER_SANITIZE_NUMBER_INT);
+                                FILTER_SANITIZE_SPECIAL_CHARS);
                         
                         $species_trait_text = "";
                     
