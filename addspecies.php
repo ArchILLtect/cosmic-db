@@ -19,6 +19,7 @@
     <body>
         <?php
             require_once('navmenu.php');
+            require_once('specieslistingfileconstants.php');
         ?>
         <div class="card">
             <div class="card-body">
@@ -34,11 +35,8 @@
                     $species_trait_text = "";
                     $checked_species_traits = null;
 
-                    $traits = [ //TODO - Add more traits
-                        'Action', 'Adventure', 'Comedy', 'Documentary', 'Drama',
-                        'Fantasy', 'Horror', 'Mystery', 'Romance',
-                        'Science Fiction', 'Thriller'
-                    ];
+                    $traits = CDB_TRAITS;
+
                     if (isset(
                             $_POST['add_species_submission'],
                             $_POST['species_name'],
@@ -63,7 +61,7 @@
                             $species_trait_text = implode(",", $checked_species_traits);
                         }
                         
-                        /* // TODO - Update this comment to reflect the new function name
+                        /*
                         Here is where we will deal with the file by calling validateSpeciesImageFile().
                         The function will validate that the species image file is the right image type
                         (jpg/png/gif), and not greater than 512kb. This function will return an empty

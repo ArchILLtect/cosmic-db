@@ -19,6 +19,7 @@
     <body>
         <?php
             require_once('navmenu.php');
+            require_once('specieslistingfileconstants.php');
         ?>
         <div class="card">
             <div class="card-body">
@@ -36,11 +37,7 @@
                                 or trigger_error('Error connecting to MySQL server for '
                                 . DB_NAME, E_USER_ERROR);
 
-                    $traits = [ //TODO - Add more traits
-                        'Action', 'Adventure', 'Comedy', 'Documentary', 'Drama',
-                        'Fantasy', 'Horror', 'Mystery', 'Romance',
-                        'Science Fiction', 'Thriller'
-                    ];
+                    $traits = CDB_TRAITS;
                     
                     if (isset($_GET['id_to_edit'])) {
                         $id_to_edit = $_GET['id_to_edit'];
