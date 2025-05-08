@@ -163,7 +163,7 @@
                             Species Description
                         </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="species_description"
+                            <input type="text" class="form-control" id="species_description"
                                     name="species_description" placeholder="Species Description"
                                     required>
                             <div class="invalid-feedback">
@@ -176,7 +176,7 @@
                             Species Homeworld
                         </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="species_homeworld"
+                            <input type="text" class="form-control" id="species_homeworld"
                                     name="species_homeworld" placeholder="Species Howmeworld"
                                     required>
                             <div class="invalid-feedback">
