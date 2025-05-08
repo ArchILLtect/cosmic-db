@@ -14,7 +14,7 @@
      *                  returned. If there is an error, a string containing the constraints the file failed
      *                  to validate is/are returned.
      *
-     * @return String   Empty if validation is successful, otherwise an error string containing the
+     * @return string   Empty if validation is successful, otherwise an error string containing the
      *                  constraints the file failed to validate to.
      *
      */
@@ -41,11 +41,11 @@
             {
                 if (empty($error_message))
                 {
-                    $error_messages = "The species file image must be of type jpg, png or gif.";
+                    $error_message = "The species file image must be of type jpg, png or gif.";
                 }
                 else
                 {
-                    $error_messages .= ", and be an image of type jpg, png or gif.";                      
+                    $error_message .= ", and be an image of type jpg, png or gif.";                      
                 }
             }
         }
