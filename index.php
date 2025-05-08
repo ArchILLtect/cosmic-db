@@ -46,7 +46,8 @@
                 <?php endif; ?>
                     <?php
                         require_once('dbconnection.php');
-                        require_once('specieslistingfileconstants.php');
+                        require_once('speciesfileconstants.php');
+                        require_once('characterfileconstants.php');
 
                         $dbc = mysqli_connect(  DB_HOST,
                                                 DB_USER,
@@ -104,7 +105,7 @@
                     <?php
                         else:
                     ?>
-                            <h3>No Species Found :-(</h3>
+                            <h3>No Species Found</h3>
                     <?php
                         endif;           
                     ?>
