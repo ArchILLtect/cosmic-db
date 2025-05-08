@@ -52,13 +52,14 @@
 									or trigger_error(mysqli_error($dbc), E_USER_ERROR);
 							
 							// If user does not exist, create an account for them
+							/** @var mysqli_result $results */
 							if (mysqli_num_rows($results) == 0)
 							{
 								$salted_hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
                 $query = "INSERT INTO user (user_name, password_hash) VALUES (?, ?)";
                 $results = parameterizedQuery($dbc, $query, 'ss', $user_name, $salted_hashed_password)
-                          or trigger_error(mysqli_error($dbc, E_USER_ERROR));
+                          or trigger_error(mysqli_error($dbc), E_USER_ERROR);
                 
                 // Direct user to the login page
                 echo "<h4><p class='text-success'>Thank you for signing up <strong>$user_name"
