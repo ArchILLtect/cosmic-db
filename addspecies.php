@@ -22,63 +22,55 @@
         ?>
         <div class="card">
             <div class="card-body">
-                <h1>Add a Movie</h1>
+                <h1>Add a Species</h1>
                 <hr/>
                 <?php
                     // Initialization
-                    $display_add_movie_form = true;
+                    $display_add_species_form = true;
                     
-                    $movie_title = "";
-                    $movie_year = "";
-                    $movie_rating = "";
-                    $movie_director = "";
-                    $movie_runtime = "";
-                    $movie_genre_text = "";
-                    $checked_movie_genres = null; 
+                    $species_name = "";
+                    $species_description = "";
+                    $species_homeworld = "";
+                    $species_trait_text = "";
+                    $checked_species_traits = null;
 
-                    $genres = [
+                    $traits = [ //TODO - Add more traits
                         'Action', 'Adventure', 'Comedy', 'Documentary', 'Drama',
                         'Fantasy', 'Horror', 'Mystery', 'Romance',
                         'Science Fiction', 'Thriller'
                     ];
                     if (isset(
-                            $_POST['add_movie_submission'],
-                            $_POST['movie_title'],
-                            $_POST['movie_release_year'],
-                            $_POST['movie_rating'],
-                            $_POST['movie_director'],
-                            $_POST['movie_running_time_in_minutes']
+                            $_POST['add_species_submission'],
+                            $_POST['species_name'],
+                            $_POST['species_description'],
+                            $_POST['species_homeworld']
                     )) {
                         require_once('dbconnection.php');
-                        require_once('movieimagefileutil.php');
+                        require_once('speciesimagefileutil.php');
 
-                        $movie_title = filter_var($_POST['movie_title'],
+                        $species_name = filter_var($_POST['species_name'],
                                 FILTER_SANITIZE_SPECIAL_CHARS);
-                        $movie_year = filter_var($_POST['movie_release_year'],
+                        $species_description = filter_var($_POST['species_description'],
                                 FILTER_SANITIZE_NUMBER_INT);
-                        $movie_rating = filter_var($_POST['movie_rating'],
+                        $species_homeworld = filter_var($_POST['species_homeworld'],
                                 FILTER_SANITIZE_SPECIAL_CHARS);
-                        $movie_director = filter_var($_POST['movie_director'],
-                                FILTER_SANITIZE_SPECIAL_CHARS);
-                        $movie_runtime = filter_var($_POST['movie_running_time_in_minutes'],
-                                FILTER_SANITIZE_NUMBER_INT);
-                        $checked_movie_genres = $_POST['movie_genre_checkbox'];
+                        $checked_species_traits = $_POST['species_trait_checkbox'];
                         
-                        $movie_genre_text = "";
+                        $species_trait_text = "";
                     
-                    if (isset($checked_movie_genres))
+                    if (isset($checked_species_traits))
                         {
-                            $movie_genre_text = implode(",", $checked_movie_genres);
+                            $species_trait_text = implode(",", $checked_species_traits);
                         }
                         
-                        /*
-                        Here is where we will deal with the file by calling validateMovieImageFile().
-                        The function will validate that the movie image file is the right image type
+                        /* // TODO - Update this comment to reflect the new function name
+                        Here is where we will deal with the file by calling validateSpeciesImageFile().
+                        The function will validate that the species image file is the right image type
                         (jpg/png/gif), and not greater than 512kb. This function will return an empty
                         string ('') if the file validates successfully, otherwise, the string will
                         contain error text to be output to the web page before re-displaying the form.
                         */
-                        $file_error_message = validateMovieImageFile();
+                        $file_error_message = validateSpeciesImageFile();
                         
                         if(empty($file_error_message))
                         {
@@ -87,62 +79,52 @@
                                 or trigger_error('Error connecting to MySQL server for '
                                 . DB_NAME, E_USER_ERROR);
                         
-                        $movie_image_file_path = addMovieImageFileReturnPathLocation();
+                        $species_image_file_path = addSpeciesImageFileReturnPathLocation();
 
-                        $sql = "INSERT INTO movieListing (title, release_year, rating, "
-                                . "director, running_time_in_minutes, genre, image_file) " 
-                                . " VALUES (?, ?, ?, ?, ?, ?, ?)";
+                        $sql = "INSERT INTO species (name, description, homeworld, "
+                                . "trait, image_file) VALUES (?, ?, ?, ?, ?)";
                         
                         $stmt = mysqli_prepare($dbc, $sql);
 
-                        mysqli_stmt_bind_param($stmt, "sississ", $movie_title, $movie_year,
-                                $movie_rating, $movie_director, $movie_runtime, $movie_genre_text,
-                                $movie_image_file_path);
+                        mysqli_stmt_bind_param($stmt, "sssss", $species_name, $species_description,
+                                $species_homeworld, $species_trait_text, $species_image_file_path);
                         
                         if (mysqli_stmt_execute($stmt)) {
-                            echo "Movie added successfully!";
+                            echo "Species added successfully!";
                         } else {
-                            echo "Error adding movie.";
+                            echo "Error adding species.";
                         }
 
-                        if(empty($movie_image_file_path))
+                        if(empty($species_image_file_path))
                         {
-                            $movie_image_file_path = CDB_UPLOAD_PATH
+                            $species_image_file_path = CDB_UPLOAD_PATH
                                     . CDB_DEFAULT_SPECIES_FILENAME;
                         }
 
-                        $display_add_movie_form = false;
+                        $display_add_species_form = false;
                 ?>
-                <h3 class="text-info">The following movie details were added:</h3>
+                <h3 class="text-info">The following species record was added:</h3>
 
-                <h1><?= $movie_title ?></h1>
+                <h1><?= $species_name ?></h1>
                 <div class="row">
                     <div class="col-2">
-                        <img src="<?= htmlspecialchars($movie_image_file_path) ?>" class="img-thumbnail"
-                                style="max-height: 200px;" alt="Movie Image">
+                        <img src="<?= htmlspecialchars($species_image_file_path) ?>" class="img-thumbnail"
+                                style="max-height: 200px;" alt="Species Image">
                     </div>
                     <div class="col">
                         <table class="table table-striped">
                             <tbody>
                                 <tr>
-                                    <th scope="row">Release Year</th>
-                                    <td><?= $movie_year ?></td>
+                                    <th scope="row">Description</th>
+                                    <td><?= $species_description ?></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Rating</th>
-                                    <td><?= $movie_rating ?></td>
+                                    <th scope="row">Homeworld</th>
+                                    <td><?= $species_homeworld ?></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Director</th>
-                                    <td><?= $movie_director ?></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Running Time (min.)</th>
-                                    <td><?= $movie_runtime ?></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Genre</th>
-                                    <td><?= $movie_genre_text ?></td>
+                                    <th scope="row">Traits</th>
+                                    <td><?= $species_trait_text ?></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -150,7 +132,7 @@
                 </div>
                 <hr/>
                 <p>Would you like to <a href='<?= $_SERVER['PHP_SELF'] ?>'>
-                        add another movie</a>?</p>
+                        add another species</a>?</p>
                 <?php
                     }
                     else
@@ -159,99 +141,66 @@
                         echo "<h5><p class='text-danger'>" . $file_error_message . "</p></h5>";
                     }
                 }
-                        if ($display_add_movie_form)
+                        if ($display_add_species_form)
                     {
                 ?>
                 <form enctype="multipart/form-data" class="needs-validation" novalidate method="POST"
                         action="<?= $_SERVER['PHP_SELF'] ?>">
                     <div class="from-group row">
-                        <label for="movie_title" class="col-sm-3 col-form-label-lg">
-                            Title
+                        <label for="species_name" class="col-sm-3 col-form-label-lg">
+                            Species Name
                         </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="movie_title"
-                                    name="movie_title" placeholder="Title" required>
+                            <input type="text" class="form-control" id="species_name"
+                                    name="species_name" placeholder="Species Name" required>
                             <div class="invalid-feedback">
-                                Please provide a valid movie title.
+                                Please provide a valid species name.
                             </div>
                         </div>
                     </div>
                     <div class="from-group row">
-                        <label for="movie_release_year" class="col-sm-3 col-form-label-lg">
-                            Release Year
+                        <label for="species_description" class="col-sm-3 col-form-label-lg">
+                            Species Description
                         </label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control" id="movie_release_year"
-                                    min="1880" max="2100" step="1" name="movie_release_year"
-                                    placeholder="Release Year" required>
-                            <div class="invalid-feedback">
-                                Please provide a valid movie release year.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="from-group row">
-                        <label for="movie_rating" class="col-sm-3 col-form-label-lg">
-                            Rating
-                        </label>
-                        <div class="col-sm-8">
-                            <select class="custom-select" id="movie_rating"
-                                    name="movie_rating" required>
-                                <option value="" disabled selected>Rating...</option>
-                                <option value="G">G</option>
-                                <option value="PG">PG</option>
-                                <option value="PG-13">PG-13</option>
-                                <option value="R">R</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please provide a valid movie rating.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="from-group row">
-                        <label for="movie_director" class="col-sm-3 col-form-label-lg">
-                            Director
-                        </label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="movie_director"
-                                    name="movie_director" placeholder="Director" required>
-                            <div class="invalid-feedback">
-                                Please provide a valid movie director.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="from-group row">
-                        <label for="movie_running_time_in_minutes"
-                                class="col-sm-3 col-form-label-lg">
-                            Running Time (min.)
-                        </label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control"
-                                    id="movie_running_time_in_minutes"
-                                    name="movie_running_time_in_minutes"
-                                    placeholder="Running time (in minutes)"
+                            <input type="number" class="form-control" id="species_description"
+                                    name="species_description" placeholder="Species Description"
                                     required>
                             <div class="invalid-feedback">
-                                Please provide a valid running time in minutes.
+                                Please provide a valid species description.
                             </div>
                         </div>
                     </div>
                     <div class="from-group row">
-                        <label class="col-sm-3 col-form-label-lg">Genre</label>
+                        <label for="species_homeworld" class="col-sm-3 col-form-label-lg">
+                            Species Homeworld
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" id="species_homeworld"
+                                    name="species_homeworld" placeholder="Species Howmeworld"
+                                    required>
+                            <div class="invalid-feedback">
+                                Please provide a valid species homeworld.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="from-group row">
+                        <label class="col-sm-3 col-form-label-lg">Traits</label>
                         <div class="col-sm-8">
                         <?php
-                            foreach ($genres as $genre) {
+                            foreach ($traits as $trait) {
                         ?>
                                 <div class="form-check form-check-inline col-sm-3">
                                     <input class="form-check-input" type="checkbox"
-                                        id="movie_genre_checkbox_action_<?= $genre ?>"
-                                        name="movie_genre_checkbox[]"
-                                        value="<?= $genre ?>">
+                                        id="species_trait_checkbox_action_<?= $trait ?>"
+                                        name="species_trait_checkbox[]"
+                                        value="<?= $trait ?>">
                                     <label class="form-check-label"
-                                            for="movie_genre_checkbox_action_<?= $genre ?>">
-                                        <?= $genre ?></label>
+                                            for="species_trait_checkbox_action_<?= $trait ?>">
+                                        <?= $trait ?></label>
                                 </div>
                             <div class="invalid-feedback">
-                                Please provide a valid movie genre.
+                                Please provide a valid species trait.
                             </div>
                         <?php
                             }
@@ -260,16 +209,16 @@
                     </div>
                     <br>
                     <div class="from-group row">
-                        <label for="movie_image_file"
-                                class="col-sm-3 col-form-label-lg">Movie Image File</label>
+                        <label for="species_image_file"
+                                class="col-sm-3 col-form-label-lg">Species Image File</label>
                         <div class="col-sm-8">
                             <input type="file" class="form-control-file"
-                                    id="movie_image_file" name="movie_image_file">
+                                    id="species_image_file" name="species_image_file">
                         </div>
                     </div>
                     <button class="btn btn-primary" type="submit"
-                            name="add_movie_submission">
-                        Add Movie
+                            name="add_species_submission">
+                        Add Species
                     </button>
                 </form>
                 <script>
@@ -293,7 +242,7 @@
                 })();
                 </script>
                 <?php
-                    } // Display add movie form
+                    } // Display add species form
                 ?>
             </div>
         </div>

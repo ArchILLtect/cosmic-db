@@ -13,8 +13,8 @@
 <nav class="navbar sticky-top navbar-expand-md navbar-dark"
 	  style="background-color: #569f32;">
   <a class="navbar-brand" href="<?= dirname($_SERVER['PHP_SELF']) ?>">
-    <img src="resources/movie_rental_icon.png" width="30" height="30"
-        class="d-inline-block align-top" alt="Movie Rental Icon">
+    <img src="resources/cosmic_db_icon.png" width="30" height="30"
+        class="d-inline-block align-top" alt="Species Rental Icon">
     <?= CDB_HOME_PAGE ?>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -30,7 +30,7 @@
           ($_SESSION['user_access_privileges'] == 'user' ||
           $_SESSION['user_access_privileges'] == 'admin')): ?>
         <a class="nav-item nav-link<?= $page_title == CDB_ADD_SPECIES_PAGE ? ' active' : '' ?>"
-            href="addmovie.php">Add Movie</a>
+            href="addspecies.php">Add Species</a>
       <?php endif; ?>
       <?php if (!isset($_SESSION['user_name'])): ?>
         <a class="nav-item nav-link<?= $page_title == CDB_HOME_PAGE ? ' active' : '' ?>"

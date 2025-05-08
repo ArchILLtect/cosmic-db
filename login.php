@@ -22,7 +22,7 @@
         ?>
 		<div class="card">
 			<div class="card-body">
-				<h1>Login to Movie Reservations Account</h1>
+				<h1>Login to Comic DB Account</h1>
                 <hr/>
                 <?php
                     if (empty($_SESSION['user_id']) && isset($_POST['login_submission']))

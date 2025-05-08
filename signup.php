@@ -21,7 +21,7 @@
         ?>
 		<div class="card">
 			<div class="card-body">
-				<h1>Signup for a Movie Reservations Account</h1>
+				<h1>Signup for a Cosmic DB Account</h1>
 				<hr/>
 				<?php
 					$show_signup_form = true;

@@ -3,7 +3,7 @@
 	      Date: 4/20/25
 -->
 <?php
-// Movie Listing File Constants
+// Species Listing File Constants
     define('CDB_UPLOAD_PATH', 'images/');
     define('CDB_MAX_FILE_SIZE', 524288);
     define('CDB_DEFAULT_SPECIES_FILENAME', 'generic_species.jpeg');

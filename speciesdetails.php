@@ -23,13 +23,13 @@
         ?>
         <div class="card">
             <div class="card-body">
-                <h1>Movie Details</h1>
+                <h1>Species Details</h1>
                 <hr/>
                 <?php
                     if (isset($_GET['id'])):
 
                         require_once('dbconnection.php');
-                        require_once('movielistingfileconstants.php');
+                        require_once('specieslistingfileconstants.php');
 
                         $id = $_GET['id'];
 
@@ -37,7 +37,7 @@
                                 or trigger_error('Error connecting to MySQL server for '
                                 . DB_NAME, E_USER_ERROR);
 
-                        $sql = "SELECT * FROM movieListing WHERE id = ?";
+                        $sql = "SELECT * FROM species WHERE id = ?";
 
                         $stmt = mysqli_prepare($dbc, $sql);
 
@@ -46,55 +46,47 @@
                         mysqli_stmt_execute($stmt);
 
                         $result = mysqli_stmt_get_result($stmt)
-                                or trigger_error('Error querying database movieListing',
+                                or trigger_error('Error querying database species',
                                 E_USER_ERROR);
 
                     if (mysqli_num_rows($result) == 1):
 
                         $row = mysqli_fetch_assoc($result);
                         
-                        $movie_image_file = $row['image_file'];
+                        $species_image_file = $row['image_file'];
                         
-                        if (empty($movie_image_file)):
+                        if (empty($species_image_file)):
 
-                            $movie_image_file = CDB_UPLOAD_PATH
+                            $species_image_file = CDB_UPLOAD_PATH
                             . CDB_DEFAULT_SPECIES_FILENAME;
 
                         endif;
                 ?>
-                <h2><?= htmlspecialchars($row['title']) ?></h2>
+                <h2><?= htmlspecialchars($row['name']) ?></h2>
                 <div class="row">
                     <div class="col-2">
-                        <img src="<?= htmlspecialchars($movie_image_file) ?>"
+                        <img src="<?= htmlspecialchars($species_image_file) ?>"
                                 class="img-thumbnail"
                                 style="max-height: 200px;"
-                                alt="Movie Image">
+                                alt="Species Image">
                     </div>
                     <div class="col">
-                        <table class="table table-striped">
-                          <tbody>
-                            <tr>
-                              <th scope="row">Release Year</th>
-                              <td><?= htmlspecialchars($row['release_year']) ?></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Rating</th>
-                              <td><?= htmlspecialchars($row['rating']) ?></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Director</th>
-                              <td><?= htmlspecialchars($row['director']) ?></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Running Time (minutes)</th>
-                              <td><?= htmlspecialchars($row['running_time_in_minutes']) ?></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Genre</th>
-                              <td><?= htmlspecialchars($row['genre']) ?></td>
-                            </tr>
-                          </tbody>
-                        </table>
+                      <table class="table table-striped">
+                        <tbody>
+                          <tr>
+                            <th scope="row">Description</th>
+                            <td><?= htmlspecialchars($row['description']) ?></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Homeworld</th>
+                            <td><?= htmlspecialchars($row['homeworld']) ?></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Traits</th>
+                            <td><?= htmlspecialchars($row['traits']) ?></td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                 </div>
                 <hr/>
@@ -103,21 +95,21 @@
                       $_SESSION['user_access_privileges'] == 'admin'):
                 ?>
                 <nav class='nav-link'>Feel free to
-                        <a href="editmovie.php?id_to_edit=<?= $row['id'] ?>">Edit Details</a>
+                        <a href="editspecies.php?id_to_edit=<?= $row['id'] ?>">Edit Details</a>
                         any time.
                 </nav>
                 <?php endif; ?>
                 <?php
                     else:
                 ?>
-                <h3>No Movie Details :-(</h3>
+                <h3>No Species Details</h3>
                 <?php
-                        endif;           
+                        endif;
                     else:
                 ?>
-                <h3>No Movie Details :-(</h3>
+                <h3>No Species Details</h3>
                 <?php
-                    endif;           
+                    endif;
                 ?>
             </div>
         </div>

@@ -6,9 +6,9 @@
     require_once 'specieslistingfileconstants.php';
 
     /** 
-     * Purpose:         Validates an uploaded movie image file
+     * Purpose:         Validates an uploaded species image file
      *
-     * Description:     Validates an uploaded movie image file that is not greater than ML_MAX_FILE_SIZE
+     * Description:     Validates an uploaded species image file that is not greater than ML_MAX_FILE_SIZE
      *                  (1/2 MB) an is either a jpg or png image type, and has no errors. If the image file
      *                  validates to these constraints, an error message containing an empty string is
      *                  returned. If there is an error, a string containing the constraints the file failed
@@ -18,20 +18,20 @@
      *                  constraints the file failed to validate to.
      *
      */
-    function validateMovieImageFile()
+    function validateSpeciesImageFile()
     {
         $error_message = "";
         
         // Check for $_FILES being set and no errors
-        if (isset($_FILES) && $_FILES['movie_image_file']['error'] == UPLOAD_ERR_OK)
+        if (isset($_FILES) && $_FILES['species_image_file']['error'] == UPLOAD_ERR_OK)
         {
             // Check for uploaded file < Max file size AND an acceptable image type
-            if ($_FILES['movie_image_file']['size'] > CDB_MAX_FILE_SIZE)
+            if ($_FILES['species_image_file']['size'] > CDB_MAX_FILE_SIZE)
             {
-                $error_message = "The movie file image MUST be less than " . CDB_MAX_FILE_SIZE . " Bytes";
+                $error_message = "The species file image MUST be less than " . CDB_MAX_FILE_SIZE . " Bytes";
             }
             
-            $image_type = $_FILES['movie_image_file']['type'];
+            $image_type = $_FILES['species_image_file']['type'];
             
             $allowed_image_types = [
                 'image/jpg', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'
@@ -41,7 +41,7 @@
             {
                 if (empty($error_message))
                 {
-                    $error_messages = "The movie file image must be of type jpg, png or gif.";
+                    $error_messages = "The species file image must be of type jpg, png or gif.";
                 }
                 else
                 {
@@ -49,49 +49,49 @@
                 }
             }
         }
-        elseif (isset($_FILES) && $_FILES['movie_image_file']['error'] != UPLOAD_ERR_NO_FILE
-                && $_FILES['movie_image_file']['error'] != UPLOAD_ERR_OK)
+        elseif (isset($_FILES) && $_FILES['species_image_file']['error'] != UPLOAD_ERR_NO_FILE
+                && $_FILES['species_image_file']['error'] != UPLOAD_ERR_OK)
         {
-            $error_message = "Error uploading movie image file.";
+            $error_message = "Error uploading species image file.";
         }
         return $error_message;
     }
     
     /** 
-     * Purpose:         Moves an uploaded movie image file to the ML_UPLOAD_PATH (images/)
+     * Purpose:         Moves an uploaded species image file to the ML_UPLOAD_PATH (images/)
      *                  folder and return the path location.
      *
-     * Description:     Moves an uploaded movie image file from the temporary server location
-     *                  to the ML_UPLOAD_PATH (images/) folder IF a movie image file was uploaded
+     * Description:     Moves an uploaded species image file from the temporary server location
+     *                  to the ML_UPLOAD_PATH (images/) folder IF a species image file was uploaded
      *                  and returns the path location of the uploaded file by appending the file
-     *                  name to the ML_UPLOADED_PATH (e.g. images/movie_image.png). IF a movie image
+     *                  name to the ML_UPLOADED_PATH (e.g. images/species_image.png). IF a species image
      *                  file was NOT uploaded, an empty string will be returned for the path.
      *
-     * @return string   Path to the movie image file IF a file was uploaded AND moved to the
+     * @return string   Path to the species image file IF a file was uploaded AND moved to the
      *                  ML_UPLOAD_PATH (images/) folder, otherwise an empty string.
      */
-     function addMovieImageFileReturnPathLocation()
+     function addSpeciesImageFileReturnPathLocation()
      {
-        $movie_file_path = "";
+        $species_file_path = "";
         
         // Check for $_FILES being set and no errors.
-        if (isset($_FILES) && $_FILES['movie_image_file']['error'] == UPLOAD_ERR_OK)
+        if (isset($_FILES) && $_FILES['species_image_file']['error'] == UPLOAD_ERR_OK)
         {
-            $movie_file_path = CDB_UPLOAD_PATH . $_FILES['movie_image_file']['name'];
+            $species_file_path = CDB_UPLOAD_PATH . $_FILES['species_image_file']['name'];
         
-            if (!move_uploaded_file($_FILES['movie_image_file']['tmp_name'], $movie_file_path))
+            if (!move_uploaded_file($_FILES['species_image_file']['tmp_name'], $species_file_path))
             {
-                $movie_file_path = "";
+                $species_file_path = "";
             }
         }        
         
-        return $movie_file_path;
+        return $species_file_path;
     }
      
     /** 
-     * @param $movie_file_path
+     * @param $species_file_path
      */
-    function removeMovieImageFile($movie_file_path)
+    function removeSpeciesImageFile($species_file_path)
     {
-        @unlink($movie_file_path);
+        @unlink($species_file_path);
     }
