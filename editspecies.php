@@ -174,7 +174,8 @@
                                 </label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" id="species_name"
-                                            name="species_name" placeholder="Species Name" required>
+                                            name="species_name" placeholder="Species Name"
+                                            value="<?= $species_name ?>" required>
                                     <div class="invalid-feedback">
                                         Please provide a valid species name.
                                     </div>
@@ -185,9 +186,9 @@
                                     Species Description
                                 </label>
                                 <div class="col-sm-8">
-                                    <input type="number" class="form-control" id="species_description"
+                                    <input type="text" class="form-control" id="species_description"
                                             name="species_description" placeholder="Species Description"
-                                            required>
+                                            value="<?= $species_description ?>" required>
                                     <div class="invalid-feedback">
                                         Please provide a valid species description.
                                     </div>
@@ -198,9 +199,9 @@
                                     Species Homeworld
                                 </label>
                                 <div class="col-sm-8">
-                                    <input type="number" class="form-control" id="species_homeworld"
+                                    <input type="text" class="form-control" id="species_homeworld"
                                             name="species_homeworld" placeholder="Species Howmeworld"
-                                            required>
+                                            value="<?= $species_homeworld ?>" required>
                                     <div class="invalid-feedback">
                                         Please provide a valid species homeworld.
                                     </div>
