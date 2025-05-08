@@ -52,6 +52,7 @@
 									or trigger_error(mysqli_error($dbc), E_USER_ERROR);
 							
 							// If user was found, validate password
+							/** @var mysqli_result $results */
 							if (mysqli_num_rows($results) == 1)
 							{
 								$row = mysqli_fetch_array($results);
