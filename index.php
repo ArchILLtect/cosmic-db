@@ -89,13 +89,13 @@
                                         $species_image_file = CDB_DEFAULT_SPECIES_FILENAME;
                                     }
                                     // TODO: Fix fileutil to add 'images/' to the path, and remove it from here
-                                    echo "<tr><td><img src=" . "images/" . htmlspecialchars($character_image_file)
+                                    echo "<tr><td class='w-50'><img src=" . "images/" . htmlspecialchars($character_image_file)
                                             . " class='img-thumbnail'"
                                             . "style='max-height: 75px;' alt='Character Image'"
                                             . "</td><td class='align-middle'>"
                                             . "<a class='nav-link' href='characters/characterdetails.php?id="
                                             . $row['character_id'] . "'>" . htmlspecialchars($row['name'])
-                                            . "</a></td><td>";
+                                            . "</a></td><td class='text-right align-middle'>";
                                     if (isset($_SESSION['user_access_privileges']) &&
                                             $_SESSION['user_access_privileges'] == 'admin') {
                                         echo "<a class='nav-link'"
@@ -158,13 +158,13 @@
                                         $species_image_file = CDB_DEFAULT_SPECIES_FILENAME;
                                     }
                                     // TODO: Fix fileutil to add 'images/' to the path, and remove it from here
-                                    echo "<tr><td><img src=" . "images/" . htmlspecialchars($species_image_file)
+                                    echo "<tr><td class='w-50'><img src=" . "images/" . htmlspecialchars($species_image_file)
                                             . " class='img-thumbnail'"
                                             . "style='max-height: 75px;' alt='Species Image'"
                                             . "</td><td class='align-middle'>"
                                             . "<a class='nav-link' href='species/speciesdetails.php?id="
                                             . $row['species_id'] . "'>" . htmlspecialchars($row['name'])
-                                            . "</a></td><td>";
+                                            . "</a></td><td class='text-right align-middle'>";
                                     if (isset($_SESSION['user_access_privileges']) &&
                                             $_SESSION['user_access_privileges'] == 'admin') {
                                         echo "<a class='nav-link'"
