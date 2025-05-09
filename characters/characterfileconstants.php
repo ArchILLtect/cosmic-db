@@ -13,7 +13,7 @@
     //                  defined as constants and are used in the header
     //                  of each page.
 
-    // Species Listing File Constants
+    // Character Listing File Constants
     define('CDB_DEFAULT_CHARACTER_FILENAME', 'generic_avatar.png');
     define('CDB_CHARACTER_TRAITS', ['Brave', 'Cunning', 'Daring', 'Empathetic',
         'Honest', 'Intelligent', 'Loyal', 'Perceptive', 'Resourceful', 'Stoic',

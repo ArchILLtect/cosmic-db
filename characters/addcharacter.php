@@ -74,7 +74,7 @@
                         $character_notes = filter_var($_POST['character_notes'],
                                 FILTER_SANITIZE_SPECIAL_CHARS);
                         $checked_character_traits = $_POST['character_trait_checkbox'];
-                        $checked_character_skills = $_POST['species_trait_checkbox2'];
+                        $checked_character_skills = $_POST['character_skill_checkbox'];
                         
                         $character_traits_text = "";
                         $character_skills_text = "";
@@ -86,14 +86,14 @@
                         $character_skills_text = implode(",", $checked_character_skills);
                     }
                         
-                    /* // TODO: Edit this text for character module
-                    Here is where we will deal with the file by calling validateSpeciesImageFile().
+                    /*
+                    Here is where we will deal with the file by calling validateCharacterImageFile().
                     The function will validate that the character image file is the right image type
                     (jpg/png/gif), and not greater than 512kb. This function will return an empty
                     string ('') if the file validates successfully, otherwise, the string will
                     contain error text to be output to the web page before re-displaying the form.
                     */
-                    $file_error_message = validateSpeciesImageFile(); // TODO: Rename this function for character module
+                    $file_error_message = validateCharacterImageFile();
                     
                     if(empty($file_error_message))
                     {
@@ -106,7 +106,7 @@
                             or trigger_error('Error connecting to MySQL server for '
                             . DB_NAME, E_USER_ERROR);
                     
-                        $character_image_file_path = addSpeciesImageFileReturnPathLocation(); // TODO: Rename this function for character module
+                        $character_image_file_path = addCharacterImageFileReturnPathLocation();
 
                         $sql = "INSERT INTO characters (name, age, role, personality, evo_powers, history, notes, "
                                 . "traits, skills, image_file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -325,11 +325,11 @@
                         ?>
                                 <div class="form-check form-check-inline col-sm-3">
                                     <input class="form-check-input" type="checkbox"
-                                        id="species_trait_checkbox2_action_<?= $skill ?>"
-                                        name="species_trait_checkbox2[]"
+                                        id="character_skill_checkbox_action_<?= $skill ?>"
+                                        name="character_skill_checkbox[]"
                                         value="<?= $skill ?>">
                                     <label class="form-check-label"
-                                            for="species_trait_checkbox2_action_<?= $skill ?>">
+                                            for="character_skill_checkbox_action_<?= $skill ?>">
                                         <?= $skill ?></label>
                                 </div>
                             <div class="invalid-feedback">

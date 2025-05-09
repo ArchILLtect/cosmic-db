@@ -10,7 +10,7 @@
 ?>
 <html>
     <head>
-        <title>Remove a Species</title>
+        <title>Remove a Character</title>
         <link rel="stylesheet"
                 href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
                 integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
@@ -22,11 +22,11 @@
         ?>
         <div class="card">
             <div class="card-body">
-                <h1>Remove a Species</h1>
+                <h1>Remove a Character</h1>
                 <?php
                 require_once('../dbconnection.php');
                 require_once('../fileconstants.php');
-                require_once('speciesimagefileutil.php');
+                require_once('characterfileconstants.php');
 
                 $dbc = mysqli_connect(  DB_HOST,
                                         DB_USER,
@@ -36,13 +36,13 @@
                         or trigger_error('Error connecting to MySQL server for'
                         .  DB_NAME, E_USER_ERROR);
                 
-                if (isset($_POST['delete_species_submission']) && isset($_POST['id'])):
+                if (isset($_POST['delete_character_submission']) && isset($_POST['id'])):
                 
                     $id = filter_var($_POST['id'],
                             FILTER_SANITIZE_SPECIAL_CHARS);
 
                     // Query image file from DB
-                    $sql = "SELECT image_file FROM species WHERE species_id = ?";
+                    $sql = "SELECT image_file FROM character WHERE character_id = ?";
 
                     $stmt = mysqli_prepare($dbc, $sql);
 
@@ -51,31 +51,36 @@
                     mysqli_stmt_execute($stmt);
 
                     $result = mysqli_stmt_get_result($stmt)
-                            or trigger_error('Error querying database species',
+                            or trigger_error('Error querying database chracters',
                             E_USER_ERROR);
                     
                     if (mysqli_num_rows($result) == 1)
                     {
                         $row = mysqli_fetch_assoc($result);
 
-                        $species_image_file = $row['image_file'];
+                        $character_image_file = $row['image_file'];
 
-                        if (!empty($species_image_file))
+                        if (!empty($character_image_file))
                         {
-                            removeSpeciesImageFile($species_image_file);
+                            removeCharacterImageFile($character_image_file);
                         }
                     }
 
-                    $query = "DELETE FROM species WHERE species_id = $id"; // TODO Why not parameterized?
+                    $sql = "DELETE FROM character WHERE character_id = ?";
 
-                    $result = mysqli_query($dbc, $query)
-                            or trigger_error('Error querying database species', 
-                            E_USER_ERROR);
-                    
+                    $stmt = mysqli_prepare($dbc, $sql);
+
+                    mysqli_stmt_bind_param($stmt, "i", $id);
+
+                    mysqli_stmt_execute($stmt)
+                            or trigger_error('Error querying database character', 
+                            E_USER_ERROR)
+                    ;
+
                     header("Location: index.php");
                     exit;
                     
-                elseif (isset($_POST['do_not_delete_species_submission'])):
+                elseif (isset($_POST['do_not_delete_character_submission'])):
 
                     header("Location: index.php");
                     exit;
@@ -83,65 +88,94 @@
                 elseif (isset($_GET['id_to_delete'])):
                     ?>
                     <h3 class="text-danger">Confirm Deletion of the Following
-                            Species Details</h3>
+                        Character</h3>
                     <?php
                         $id = $_GET['id_to_delete'];
                         
-                        $query = "SELECT * FROM species WHERE species_id = $id"; // TODO Why not parameterized?
+                        $sql = "SELECT * FROM characters WHERE character_id = ?";
 
-                        $result = mysqli_query($dbc, $query)
-                                or trigger_error('Error querying database species', 
+                        $stmt = mysqli_prepare($dbc, $sql);
+
+                        mysqli_stmt_bind_param($stmt, "i", $id);
+
+                        mysqli_stmt_execute($stmt);
+
+                        $result = mysqli_stmt_get_result($stmt)
+                                or trigger_error('Error querying database characters',
                                 E_USER_ERROR);
 
                         if (mysqli_num_rows($result) == 1):
                             $row = mysqli_fetch_assoc($result);
 
-                            $species_image_file = $row['image_file'];
+                            $character_image_file = $row['image_file'];
 
-                            if (empty($species_image_file))
-                            {
-                                $species_image_file = CDB_UPLOAD_WEB_PATH
-                                        . CDB_DEFAULT_SPECIES_FILENAME;
+                            if (empty($character_image_file)){
+
+                                $character_image_file = CDB_UPLOAD_WEB_PATH
+                                        . CDB_DEFAULT_CHARACTER_FILENAME;
+    
+                            } else {
+                                $character_image_file = CDB_UPLOAD_WEB_PATH . $row['image_file'];
                             }
                     ?>
                     <h1><?= htmlspecialchars($row['name']) ?></h1>
                     <div class='row'>
                         <div class='col-2'>
-                            <img src="<?= htmlspecialchars($species_image_file) ?>"
+                            <img src="<?= htmlspecialchars($character_image_file) ?>"
                                     class="img-thumbnail"
                                     style="max-height: 200px;"
-                                    alt="Species image">
+                                    alt="Character image">
                         </div>
                         <div class="col">
-                            <table class="table table-striped">
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">Description</th>
-                                        <td><?= htmlspecialchars($row['description']) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Homeworld</th>
-                                        <td><?= htmlspecialchars($row['homeworld']) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Traits</th>
-                                        <td><?= htmlspecialchars($row['traits']) ?></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Age</th>
+                                <td><?= htmlspecialchars($row['age']) ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Role</th>
+                                <td><?= htmlspecialchars($row['role']) ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Personality</th>
+                                <td><?= htmlspecialchars($row['personality']) ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Evo Powers</th>
+                                <td><?= htmlspecialchars($row['evo_powers']) ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">History</th>
+                                <td><?= htmlspecialchars($row['history']) ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Notes</th>
+                                <td><?= htmlspecialchars($row['notes']) ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Traits</th>
+                                <td><?= htmlspecialchars($row['traits']) ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Skills</th>
+                                <td><?= htmlspecialchars($row['skills']) ?></td>
+                            </tr>
+                        </tbody>
+                      </table>
+                    </div>
                     </div>
                     <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>">
                         <div class="from-group row">
                             <div class="col-sm-8">
                                 <button class="btn btn-danger" type="submit"
-                                        name="delete_species_submission">
-                                    Delete Species
+                                        name="delete_character_submission">
+                                    Delete Character
                                 </button>
                             </div>
                             <div class="col-sm-8">
                                 <button class="btn btn-success" type="submit"
-                                        name="do_not_delete_species_submission">
+                                        name="do_not_delete_character_submission">
                                     Don't Delete!
                                 </button>
                             </div>
@@ -152,10 +186,10 @@
                     <?php
                         else:
                     ?>
-                        <h3>No Species Details</h3>
+                        <h3>No Character Details</h3>
                     <?php
                         endif;
-                else: // Unintended page link = No species to remove, go back to index
+                else: // Unintended page link = No character to remove, go back to index
 
                     header("Location: index.php");
                     exit;

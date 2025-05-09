@@ -23,14 +23,14 @@
         ?>
         <div class="card">
             <div class="card-body">
-                <h1>Species Details</h1>
+                <h1>Character Details</h1>
                 <hr/>
                 <?php
                     if (isset($_GET['id'])):
 
                         require_once('../dbconnection.php');
                         require_once('../fileconstants.php');
-                        require_once('speciesfileconstants.php');
+                        require_once('characterfileconstants.php');
 
                         $id = $_GET['id'];
 
@@ -42,7 +42,7 @@
                                 or trigger_error('Error connecting to MySQL server for '
                                 . DB_NAME, E_USER_ERROR);
 
-                        $sql = "SELECT * FROM species WHERE species_id = ?";
+                        $sql = "SELECT * FROM characters WHERE character_id = ?";
 
                         $stmt = mysqli_prepare($dbc, $sql);
 
@@ -51,44 +51,66 @@
                         mysqli_stmt_execute($stmt);
 
                         $result = mysqli_stmt_get_result($stmt)
-                                or trigger_error('Error querying database species',
+                                or trigger_error('Error querying database characters',
                                 E_USER_ERROR);
 
                     if (mysqli_num_rows($result) == 1):
 
                         $row = mysqli_fetch_assoc($result);
                         
-                        $species_image_file = $row['image_file'];
+                        $character_image_file = $row['image_file'];
                         
-                        if (empty($species_image_file)):
+                        if (empty($character_image_file)) {
 
-                            $species_image_file = CDB_UPLOAD_WEB_PATH
-                            . CDB_DEFAULT_SPECIES_FILENAME;
+                            $character_image_file = CDB_UPLOAD_WEB_PATH
+                                    . CDB_DEFAULT_CHARACTER_FILENAME;
 
-                        endif;
+                        } else {
+                            $character_image_file = CDB_UPLOAD_WEB_PATH . $row['image_file'];
+                        }
                 ?>
                 <h2><?= htmlspecialchars($row['name']) ?></h2>
                 <div class="row">
                     <div class="col-2">
-                        <img src="<?= htmlspecialchars($species_image_file) ?>"
+                        <img src="<?= htmlspecialchars($character_image_file) ?>"
                                 class="img-thumbnail"
                                 style="max-height: 200px;"
-                                alt="Species Image">
+                                alt="Character Image">
                     </div>
                     <div class="col">
                       <table class="table table-striped">
                         <tbody>
                           <tr>
-                            <th scope="row">Description</th>
-                            <td><?= htmlspecialchars($row['description']) ?></td>
+                            <th scope="row">Age</th>
+                            <td><?= htmlspecialchars($row['age']) ?></td>
                           </tr>
                           <tr>
-                            <th scope="row">Homeworld</th>
-                            <td><?= htmlspecialchars($row['homeworld']) ?></td>
+                            <th scope="row">Role</th>
+                            <td><?= htmlspecialchars($row['role']) ?></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Personality</th>
+                            <td><?= htmlspecialchars($row['personality']) ?></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Evo Powers</th>
+                            <td><?= htmlspecialchars($row['evo_powers']) ?></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">History</th>
+                            <td><?= htmlspecialchars($row['history']) ?></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Notes</th>
+                            <td><?= htmlspecialchars($row['notes']) ?></td>
                           </tr>
                           <tr>
                             <th scope="row">Traits</th>
                             <td><?= htmlspecialchars($row['traits']) ?></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Skills</th>
+                            <td><?= htmlspecialchars($row['skills']) ?></td>
                           </tr>
                         </tbody>
                       </table>
@@ -100,19 +122,19 @@
                       $_SESSION['user_access_privileges'] == 'admin'):
                 ?>
                 <nav class='nav-link'>Feel free to
-                        <a href="editspecies.php?id_to_edit=<?= $row['species_id'] ?>">Edit Details</a>
+                        <a href="editcharacter.php?id_to_edit=<?= $row['character_id'] ?>">Edit Details</a>
                         any time.
                 </nav>
                 <?php endif; ?>
                 <?php
                     else:
                 ?>
-                <h3>No Species Details</h3>
+                <h3>No Character Details</h3>
                 <?php
                         endif;
                     else:
                 ?>
-                <h3>No Species Details</h3>
+                <h3>No Character Details</h3>
                 <?php
                     endif;
                 ?>
