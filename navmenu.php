@@ -30,7 +30,9 @@
           ($_SESSION['user_access_privileges'] == 'user' ||
           $_SESSION['user_access_privileges'] == 'admin')): ?>
         <a class="nav-item nav-link<?= $page_title == CDB_ADD_SPECIES_PAGE ? ' active' : '' ?>"
-            href="addspecies.php">Add Species</a>
+            href="species/addspecies.php">Add Species</a>
+        <a class="nav-item nav-link<?= $page_title == CDB_ADD_SPECIES_PAGE ? ' active' : '' ?>"
+            href="characters/addcharacter.php">Add Character</a>
       <?php endif; ?>
       <?php if (!isset($_SESSION['user_name'])): ?>
         <a class="nav-item nav-link<?= $page_title == CDB_HOME_PAGE ? ' active' : '' ?>"
