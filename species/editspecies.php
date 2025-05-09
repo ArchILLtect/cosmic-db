@@ -107,7 +107,7 @@
                             $species_image_file_displayed = $species_image_file;
                         }
 
-                        /* // TODO - Update this comment to reflect the new function name
+                        /*
                         Here is where we will deal with the file by calling validateSpeciesImageFile().
                         The function will validate that the species image file is not greater than 128
                         characters, is the right image type (jpg/png/gif), and not greater than 512kb.
