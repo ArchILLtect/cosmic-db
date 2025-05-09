@@ -4,9 +4,9 @@
 -->
 <?php
     $required_access_level = 'admin';
-    require_once('authorizeaccess.php');
-    require_once('pagetitles.php');
-    $page_title = CDB_REMOVE_SPECIES_PAGE;
+    require_once('../authorizeaccess.php');
+    require_once('../pagetitles.php');
+    $page_title = CDB_REMOVE_CHARACTER_PAGE;
 ?>
 <html>
     <head>
@@ -18,13 +18,14 @@
     </head>
     <body>
         <?php
-            require_once('navmenu.php');
+            require_once('../navmenu.php');
         ?>
         <div class="card">
             <div class="card-body">
                 <h1>Remove a Species</h1>
                 <?php
-                require_once('dbconnection.php');
+                require_once('../dbconnection.php');
+                require_once('../fileconstants.php');
                 require_once('speciesimagefileutil.php');
 
                 $dbc = mysqli_connect(  DB_HOST,
@@ -41,7 +42,7 @@
                             FILTER_SANITIZE_SPECIAL_CHARS);
 
                     // Query image file from DB
-                    $sql = "SELECT image_file FROM species WHERE id = ?";
+                    $sql = "SELECT image_file FROM species WHERE species_id = ?";
 
                     $stmt = mysqli_prepare($dbc, $sql);
 
@@ -65,7 +66,7 @@
                         }
                     }
 
-                    $query = "DELETE FROM species WHERE id = $id"; // TODO Why not parameterized?
+                    $query = "DELETE FROM species WHERE species_id = $id"; // TODO Why not parameterized?
 
                     $result = mysqli_query($dbc, $query)
                             or trigger_error('Error querying database species', 
@@ -86,7 +87,7 @@
                     <?php
                         $id = $_GET['id_to_delete'];
                         
-                        $query = "SELECT * FROM species WHERE id = $id"; // TODO Why not parameterized?
+                        $query = "SELECT * FROM species WHERE species_id = $id"; // TODO Why not parameterized?
 
                         $result = mysqli_query($dbc, $query)
                                 or trigger_error('Error querying database species', 
@@ -99,7 +100,7 @@
 
                             if (empty($species_image_file))
                             {
-                                $species_image_file = CDB_UPLOAD_PATH
+                                $species_image_file = CDB_UPLOAD_WEB_PATH
                                         . CDB_DEFAULT_SPECIES_FILENAME;
                             }
                     ?>

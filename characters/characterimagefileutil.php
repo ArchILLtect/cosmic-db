@@ -3,7 +3,7 @@
 	      Date: 4/20/25
 -->
 <?php
-    require_once 'specieslistingfileconstants.php';
+    require_once 'characterfileconstants.php';
 
     /** 
      * Purpose:         Validates an uploaded species image file
@@ -23,15 +23,15 @@
         $error_message = "";
         
         // Check for $_FILES being set and no errors
-        if (isset($_FILES) && $_FILES['species_image_file']['error'] == UPLOAD_ERR_OK)
+        if (isset($_FILES) && $_FILES['character_image_file']['error'] == UPLOAD_ERR_OK)
         {
             // Check for uploaded file < Max file size AND an acceptable image type
-            if ($_FILES['species_image_file']['size'] > CDB_MAX_FILE_SIZE)
+            if ($_FILES['character_image_file']['size'] > CDB_MAX_FILE_SIZE)
             {
                 $error_message = "The species file image MUST be less than " . CDB_MAX_FILE_SIZE . " Bytes";
             }
             
-            $image_type = $_FILES['species_image_file']['type'];
+            $image_type = $_FILES['character_image_file']['type'];
             
             $allowed_image_types = [
                 'image/jpg', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'
@@ -49,8 +49,8 @@
                 }
             }
         }
-        elseif (isset($_FILES) && $_FILES['species_image_file']['error'] != UPLOAD_ERR_NO_FILE
-                && $_FILES['species_image_file']['error'] != UPLOAD_ERR_OK)
+        elseif (isset($_FILES) && $_FILES['character_image_file']['error'] != UPLOAD_ERR_NO_FILE
+                && $_FILES['character_image_file']['error'] != UPLOAD_ERR_OK)
         {
             $error_message = "Error uploading species image file.";
         }
@@ -75,11 +75,11 @@
         $species_file_path = "";
         
         // Check for $_FILES being set and no errors.
-        if (isset($_FILES) && $_FILES['species_image_file']['error'] == UPLOAD_ERR_OK)
+        if (isset($_FILES) && $_FILES['character_image_file']['error'] == UPLOAD_ERR_OK)
         {
-            $species_file_path = CDB_UPLOAD_PATH . $_FILES['species_image_file']['name'];
+            $species_file_path = CDB_UPLOAD_PATH . $_FILES['character_image_file']['name'];
         
-            if (!move_uploaded_file($_FILES['species_image_file']['tmp_name'], $species_file_path))
+            if (!move_uploaded_file($_FILES['character_image_file']['tmp_name'], $species_file_path))
             {
                 $species_file_path = "";
             }

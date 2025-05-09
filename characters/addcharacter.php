@@ -3,14 +3,14 @@
         Date: 4/20/25
 -->
 <?php
-    require_once('authorizeaccess.php');
-    require_once('pagetitles.php');
-    $page_title = CDB_ADD_SPECIES_PAGE;
+    require_once('../authorizeaccess.php');
+    require_once('../pagetitles.php');
+    $page_title = CDB_ADD_CHARACTER_PAGE;
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Add a Species</title>
+        <title>Add a Character</title>
         <link rel="stylesheet"
                 href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
                 integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
@@ -18,115 +18,161 @@
     </head>
     <body>
         <?php
-            require_once('navmenu.php');
-            require_once('specieslistingfileconstants.php');
+            require_once('../navmenu.php');
+            require_once('../fileconstants.php');
+            require_once('characterfileconstants.php');
         ?>
         <div class="card">
             <div class="card-body">
-                <h1>Add a Species</h1>
+                <h1>Add a Character</h1>
                 <hr/>
                 <?php
                     // Initialization
-                    $display_add_species_form = true;
+                    $display_add_character_form = true;
                     
-                    $species_name = "";
-                    $species_description = "";
-                    $species_homeworld = "";
-                    $species_trait_text = "";
-                    $checked_species_traits = null;
+                    $character_name = "";
+                    $character_age = "";
+                    $character_role = "";
+                    $character_personality = "";
+                    $character_evo_powers = "";
+                    $character_history = "";
+                    $character_notes = "";
+                    $character_traits_text = "";
+                    $checked_character_traits = null;
+                    $character_skills_text = "";
+                    $checked_character_skills = null;
 
-                    $traits = CDB_TRAITS;
+                    $traits = CDB_CHARACTER_TRAITS;
+                    $skills = CDB_CHARACTER_SKILLS;
 
                     if (isset(
-                            $_POST['add_species_submission'],
-                            $_POST['species_name'],
-                            $_POST['species_description'],
-                            $_POST['species_homeworld']
+                            $_POST['add_character_submission'],
+                            $_POST['character_name'],
+                            $_POST['character_age'],
+                            $_POST['character_role'],
+                            $_POST['character_personality'],
+                            $_POST['character_evo_powers'],
+                            $_POST['character_history'],
+                            $_POST['character_notes'],
+
                     )) {
-                        require_once('dbconnection.php');
-                        require_once('speciesimagefileutil.php');
+                        require_once('../dbconnection.php');
+                        require_once('characterimagefileutil.php');
 
-                        $species_name = filter_var($_POST['species_name'],
+                        $character_name = filter_var($_POST['character_name'],
                                 FILTER_SANITIZE_SPECIAL_CHARS);
-                        $species_description = filter_var($_POST['species_description'],
+                        $character_age = filter_var($_POST['character_age'],
+                                FILTER_SANITIZE_NUMBER_INT);
+                        $character_role = filter_var($_POST['character_role'],
                                 FILTER_SANITIZE_SPECIAL_CHARS);
-                        $species_homeworld = filter_var($_POST['species_homeworld'],
+                        $character_personality = filter_var($_POST['character_personality'],
                                 FILTER_SANITIZE_SPECIAL_CHARS);
-                        $checked_species_traits = $_POST['species_trait_checkbox'];
+                        $character_evo_powers = filter_var($_POST['character_evo_powers'],
+                                FILTER_SANITIZE_SPECIAL_CHARS);
+                        $character_history = filter_var($_POST['character_history'],
+                                FILTER_SANITIZE_SPECIAL_CHARS);
+                        $character_notes = filter_var($_POST['character_notes'],
+                                FILTER_SANITIZE_SPECIAL_CHARS);
+                        $checked_character_traits = $_POST['character_trait_checkbox'];
+                        $checked_character_skills = $_POST['species_trait_checkbox2'];
                         
-                        $species_trait_text = "";
+                        $character_traits_text = "";
+                        $character_skills_text = "";
                     
-                    if (isset($checked_species_traits))
-                        {
-                            $species_trait_text = implode(",", $checked_species_traits);
-                        }
+                    if (isset($checked_character_traits)) {
+                        $character_traits_text = implode(",", $checked_character_traits);
+                    }
+                    if (isset($checked_character_skills)) {
+                        $character_skills_text = implode(",", $checked_character_skills);
+                    }
                         
-                        /*
-                        Here is where we will deal with the file by calling validateSpeciesImageFile().
-                        The function will validate that the species image file is the right image type
-                        (jpg/png/gif), and not greater than 512kb. This function will return an empty
-                        string ('') if the file validates successfully, otherwise, the string will
-                        contain error text to be output to the web page before re-displaying the form.
-                        */
-                        $file_error_message = validateSpeciesImageFile();
-                        
-                        if(empty($file_error_message))
-                        {
+                    /* // TODO: Edit this text for character module
+                    Here is where we will deal with the file by calling validateSpeciesImageFile().
+                    The function will validate that the character image file is the right image type
+                    (jpg/png/gif), and not greater than 512kb. This function will return an empty
+                    string ('') if the file validates successfully, otherwise, the string will
+                    contain error text to be output to the web page before re-displaying the form.
+                    */
+                    $file_error_message = validateSpeciesImageFile(); // TODO: Rename this function for character module
+                    
+                    if(empty($file_error_message))
+                    {
 
-                            $dbc = mysqli_connect(  DB_HOST,
-                                    DB_USER,
-                                    DB_PASSWORD,
-                                    DB_NAME,
-                                    DB_PORT)
-                                or trigger_error('Error connecting to MySQL server for '
-                                . DB_NAME, E_USER_ERROR);
-                        
-                        $species_image_file_path = addSpeciesImageFileReturnPathLocation();
+                        $dbc = mysqli_connect(  DB_HOST,
+                                DB_USER,
+                                DB_PASSWORD,
+                                DB_NAME,
+                                DB_PORT)
+                            or trigger_error('Error connecting to MySQL server for '
+                            . DB_NAME, E_USER_ERROR);
+                    
+                        $character_image_file_path = addSpeciesImageFileReturnPathLocation(); // TODO: Rename this function for character module
 
-                        $sql = "INSERT INTO species (name, description, homeworld, "
-                                . "traits, image_file) VALUES (?, ?, ?, ?, ?)";
+                        $sql = "INSERT INTO characters (name, age, role, personality, evo_powers, history, notes, "
+                                . "traits, skills, image_file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                         
                         $stmt = mysqli_prepare($dbc, $sql);
 
-                        mysqli_stmt_bind_param($stmt, "sssss", $species_name, $species_description,
-                                $species_homeworld, $species_trait_text, $species_image_file_path);
+                        mysqli_stmt_bind_param($stmt, "sissssssss", $character_name, $character_age,
+                                $character_role, $character_personality, $character_evo_powers, $character_history, $character_notes,
+                                $character_traits_text, $character_skills_text, $character_image_file_path);
                         
                         if (mysqli_stmt_execute($stmt)) {
-                            echo "Species added successfully!";
+                            echo "Character added successfully!";
                         } else {
-                            echo "Error adding species.";
+                            echo "Error adding character.";
                         }
 
-                        if(empty($species_image_file_path))
+                        if(empty($character_image_file_path))
                         {
-                            $species_image_file_path = CDB_UPLOAD_PATH
-                                    . CDB_DEFAULT_SPECIES_FILENAME;
+                            $character_image_file_path = CDB_UPLOAD_WEB_PATH
+                                    . CDB_DEFAULT_CHARACTER_FILENAME;
                         }
 
-                        $display_add_species_form = false;
+                        $display_add_character_form = false;
                 ?>
-                <h3 class="text-info">The following species record was added:</h3>
+                <h3 class="text-info">The following character record was added:</h3>
 
-                <h1><?= $species_name ?></h1>
+                <h1><?= $character_name ?></h1>
                 <div class="row">
                     <div class="col-2">
-                        <img src="<?= htmlspecialchars($species_image_file_path) ?>" class="img-thumbnail"
-                                style="max-height: 200px;" alt="Species Image">
+                        <img src="<?= htmlspecialchars($character_image_file_path) ?>" class="img-thumbnail"
+                                style="max-height: 200px;" alt="Character Image">
                     </div>
                     <div class="col">
                         <table class="table table-striped">
                             <tbody>
                                 <tr>
-                                    <th scope="row">Description</th>
-                                    <td><?= $species_description ?></td>
+                                    <th scope="row">Age</th>
+                                    <td><?= $character_age ?></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Homeworld</th>
-                                    <td><?= $species_homeworld ?></td>
+                                    <th scope="row">Role</th>
+                                    <td><?= $character_role ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Personality</th>
+                                    <td><?= $character_personality ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Evo Powers</th>
+                                    <td><?= $character_evo_powers ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">History</th>
+                                    <td><?= $character_history ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Notes</th>
+                                    <td><?= $character_notes ?></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Traits</th>
-                                    <td><?= $species_trait_text ?></td>
+                                    <td><?= $character_traits_text ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Skills</th>
+                                    <td><?= $character_skills_text ?></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -134,93 +180,178 @@
                 </div>
                 <hr/>
                 <p>Would you like to <a href='<?= $_SERVER['PHP_SELF'] ?>'>
-                        add another species</a>?</p>
+                        add another character</a>?</p>
                 <?php
+                        }
+                        else
+                        {
+                            // Echo error message
+                            echo "<h5><p class='text-danger'>" . $file_error_message . "</p></h5>";
+                        }
                     }
-                    else
-                    {
-                        // Echo error message
-                        echo "<h5><p class='text-danger'>" . $file_error_message . "</p></h5>";
-                    }
-                }
-                        if ($display_add_species_form)
+                    if ($display_add_character_form)
                     {
                 ?>
                 <form enctype="multipart/form-data" class="needs-validation" novalidate method="POST"
                         action="<?= $_SERVER['PHP_SELF'] ?>">
                     <div class="from-group row">
-                        <label for="species_name" class="col-sm-3 col-form-label-lg">
-                            Species Name
+                        <label for="character_name" class="col-sm-3 col-form-label-lg">
+                            Name
                         </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="species_name"
-                                    name="species_name" placeholder="Species Name" required>
+                            <input type="text" class="form-control" id="character_name"
+                                    name="character_name" placeholder="Character Name" required>
                             <div class="invalid-feedback">
-                                Please provide a valid species name.
+                                Please provide a valid character name.
                             </div>
                         </div>
                     </div>
                     <div class="from-group row">
-                        <label for="species_description" class="col-sm-3 col-form-label-lg">
-                            Species Description
+                        <label for="character_age" class="col-sm-3 col-form-label-lg">
+                            Age
                         </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="species_description"
-                                    name="species_description" placeholder="Species Description"
-                                    required>
+                            <input type="number" class="form-control" id="character_age"
+                                    name="character_age" placeholder="Character Age"
+                                    required> <!-- //TODO: Add validation for age -->
                             <div class="invalid-feedback">
-                                Please provide a valid species description.
+                                Please provide a valid character age.
                             </div>
                         </div>
                     </div>
                     <div class="from-group row">
-                        <label for="species_homeworld" class="col-sm-3 col-form-label-lg">
-                            Species Homeworld
+                        <label for="character_role" class="col-sm-3 col-form-label-lg">
+                            Role
                         </label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="species_homeworld"
-                                    name="species_homeworld" placeholder="Species Howmeworld"
+                            <input type="text" class="form-control" id="character_role"
+                                    name="character_role" placeholder="Character Role"
                                     required>
                             <div class="invalid-feedback">
-                                Please provide a valid species homeworld.
+                                Please provide a valid character role.
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="from-group row">
+                        <label for="character_personality" class="col-sm-3 col-form-label-lg">
+                            Personality
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="character_personality"
+                                    name="character_personality" placeholder="Character Personality"
+                                    required>
+                            <div class="invalid-feedback">
+                                Please provide a valid character personality.
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="from-group row">
+                        <label for="character_evo_powers" class="col-sm-3 col-form-label-lg">
+                            Evo Powers
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="character_evo_powers"
+                                    name="character_evo_powers" placeholder="Character Evo Powers"
+                                    required>
+                            <div class="invalid-feedback">
+                                Please provide valid character evo powers.
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="from-group row">
+                        <label for="character_history" class="col-sm-3 col-form-label-lg">
+                            History
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="character_history"
+                                    name="character_history" placeholder="Character History"
+                                    required>
+                            <div class="invalid-feedback">
+                                Please provide a valid character history.
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="from-group row">
+                        <label for="character_notes" class="col-sm-3 col-form-label-lg">
+                            Notes
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="character_notes"
+                                    name="character_notes" placeholder="Character Notes"
+                                    required>
+                            <div class="invalid-feedback">
+                                Please provide valid character notes.
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                     <div class="from-group row">
                         <label class="col-sm-3 col-form-label-lg">Traits</label>
                         <div class="col-sm-8">
                         <?php
-                            foreach ($traits as $trait) {
+                        foreach ($traits as $trait) {
                         ?>
                                 <div class="form-check form-check-inline col-sm-3">
                                     <input class="form-check-input" type="checkbox"
-                                        id="species_trait_checkbox_action_<?= $trait ?>"
-                                        name="species_trait_checkbox[]"
+                                        id="character_trait_checkbox_action_<?= $trait ?>"
+                                        name="character_trait_checkbox[]"
                                         value="<?= $trait ?>">
                                     <label class="form-check-label"
-                                            for="species_trait_checkbox_action_<?= $trait ?>">
+                                            for="character_trait_checkbox_action_<?= $trait ?>">
                                         <?= $trait ?></label>
                                 </div>
                             <div class="invalid-feedback">
-                                Please provide a valid species trait.
+                                Please provide valid character traits.
                             </div>
                         <?php
-                            }
+                        }
                         ?>
                         </div>
                     </div>
-                    <br>
+                    <hr>
                     <div class="from-group row">
-                        <label for="species_image_file"
-                                class="col-sm-3 col-form-label-lg">Species Image File</label>
+                        <label class="col-sm-3 col-form-label-lg">Skills</label>
+                        <div class="col-sm-8">
+                        <?php
+                        foreach ($skills as $skill) {
+                        ?>
+                                <div class="form-check form-check-inline col-sm-3">
+                                    <input class="form-check-input" type="checkbox"
+                                        id="species_trait_checkbox2_action_<?= $skill ?>"
+                                        name="species_trait_checkbox2[]"
+                                        value="<?= $skill ?>">
+                                    <label class="form-check-label"
+                                            for="species_trait_checkbox2_action_<?= $skill ?>">
+                                        <?= $skill ?></label>
+                                </div>
+                            <div class="invalid-feedback">
+                                Please provide valid character skills.
+                            </div>
+                        <?php
+                        }
+                        ?>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="from-group row">
+                        <label for="character_image_file"
+                                class="col-sm-3 col-form-label-lg">Character Image File</label>
                         <div class="col-sm-8">
                             <input type="file" class="form-control-file"
-                                    id="species_image_file" name="species_image_file">
+                                    id="character_image_file" name="character_image_file">
                         </div>
                     </div>
                     <button class="btn btn-primary" type="submit"
-                            name="add_species_submission">
-                        Add Species
+                            name="add_character_submission">
+                        Add Character
                     </button>
                 </form>
                 <script>
@@ -244,7 +375,7 @@
                 })();
                 </script>
                 <?php
-                    } // Display add species form
+                    } // Display add character form
                 ?>
             </div>
         </div>

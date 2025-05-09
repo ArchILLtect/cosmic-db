@@ -3,9 +3,9 @@
         Date: 4/20/25
 -->
 <?php
-    require_once('authorizeaccess.php');
-    require_once('pagetitles.php');
-    $page_title = CDB_EDIT_SPECIES_PAGE;
+    require_once('../authorizeaccess.php');
+    require_once('../pagetitles.php');
+    $page_title = CDB_EDIT_CHARACTER_PAGE;
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,15 +18,16 @@
     </head>
     <body>
         <?php
-            require_once('navmenu.php');
-            require_once('specieslistingfileconstants.php');
+            require_once('../navmenu.php');
+            require_once('../fileconstants.php');
+            require_once('speciesfileconstants.php');
         ?>
         <div class="card">
             <div class="card-body">
                 <h1>Edit a Species</h1>
                 <hr/>
                 <?php
-                    require_once('dbconnection.php');
+                    require_once('../dbconnection.php');
                     require_once('speciesimagefileutil.php');
 
                     $dbc = mysqli_connect(  DB_HOST,
@@ -37,7 +38,7 @@
                                 or trigger_error('Error connecting to MySQL server for '
                                 . DB_NAME, E_USER_ERROR);
 
-                    $traits = CDB_TRAITS;
+                    $traits = CDB_SPECIES_TRAITS;
                     
                     if (isset($_GET['id_to_edit'])) {
                         $id_to_edit = $_GET['id_to_edit'];
@@ -58,7 +59,7 @@
                             
                             if (empty($species_image_file))
                             {
-                                $species_image_file_displayed = CDB_UPLOAD_PATH
+                                $species_image_file_displayed = CDB_UPLOAD_WEB_PATH
                                         . CDB_DEFAULT_SPECIES_FILENAME;
                             }
                             else
@@ -98,7 +99,7 @@
 
                         if (empty($species_image_file))
                         {
-                            $species_image_file_displayed = CDB_UPLOAD_PATH
+                            $species_image_file_displayed = CDB_UPLOAD_WEB_PATH
                                     . CDB_DEFAULT_SPECIES_FILENAME;
                         }
                         else

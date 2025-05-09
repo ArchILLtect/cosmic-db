@@ -14,15 +14,13 @@
     //                  of each page.
 
     // Species Listing File Constants
-    define('CDB_DEFAULT_CHARACTER_FILENAME', 'generic-species.jpg');
-    //define('CDB_DEFAULT_CHARACTER_IMAGE', CDB_UPLOAD_PATH . CDB_DEFAULT_SPECIES_FILENAME);
-    define('CDB_CHARACTER_TRAITS', ['Aggressive', 'Aquatic',
-        'Bioluminescent', 'Carnivorous', 'Cold-blooded', 'Docile', 'Energy-based', 'Hive-minded',
-        'Nomadic', 'Nocturnal', 'Non-sentient', 'Omnivorous', 'Plantoid', 'Parasitic',
-        'Photosynthetic', 'Predatory', 'Reptilian', 'Sapient', 'Shape-shifting', 'Sentient',
-        'Silicate', 'Silicon-based', 'Skeletal', 'Slime-based', 'Social', 'Space-faring',
-        'Spore-based', 'Subterranean', 'Symbiotic', 'Telepathic', 'Tough-skinned', 'Translucent',
-        'Tropical', 'Unstable', 'Vampiric', 'Vaporous', 'Vascular', 'Venomous', 'Vertebrate',
-        'Vulnerable', 'Warm-blooded', 'Winged', 'Xenophobic', 'X-ray vision', 'Zoological'
-    ]);
+    define('CDB_DEFAULT_CHARACTER_FILENAME', 'generic_avatar.png');
+    define('CDB_CHARACTER_TRAITS', ['Brave', 'Cunning', 'Daring', 'Empathetic',
+        'Honest', 'Intelligent', 'Loyal', 'Perceptive', 'Resourceful', 'Stoic',
+        'Strong', 'Wise', 'Agile', 'Charismatic', 'Creative', 'Quick-witted',
+        'Stealthy', 'Tough', 'Adventurous', 'Curious']);
+    define('CDB_CHARACTER_SKILLS', ['Engineer', 'Pilot', 'Medic', 'Scientist',
+        'Soldier', 'Diplomat', 'Thief', 'Hunter', 'Mechanic', 'Technician', 'Marksman', 'Stealth',
+        'Navigator', 'Scout', 'Leader', 'Inventor', 'Strategist', 'Survivalist', 'Linguist',
+        'Negotiator', 'Hacker', 'Brawler', 'Sniper', 'Tracker', 'Gunslinger']);
 ?>
