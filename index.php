@@ -46,8 +46,9 @@
                 <?php endif; ?>
                     <?php
                         require_once('dbconnection.php');
-                        require_once('speciesfileconstants.php');
-                        require_once('characterfileconstants.php');
+                        require_once('fileconstants.php');
+                        require_once('species/speciesfileconstants.php');
+                        require_once('characters/characterfileconstants.php');
 
                         $dbc = mysqli_connect(  DB_HOST,
                                                 DB_USER,
@@ -57,7 +58,7 @@
                                 or trigger_error('Error connecting to MySQL server for'
                                 .  DB_NAME, E_USER_ERROR);
 
-                        $query = "SELECT id, name, image_file FROM species ORDER BY name";
+                        $query = "SELECT species_id, name, image_file FROM species ORDER BY name";
 
                         $result = mysqli_query($dbc, $query)
                                 or trigger_error('Error querying database species', 
@@ -81,7 +82,7 @@
                                         
                                         if (empty($species_image_file))
                                         {
-                                            $species_image_file = CDB_UPLOAD_PATH
+                                            $species_image_file = CDB_UPLOAD_WEB_PATH
                                                     . CDB_DEFAULT_SPECIES_FILENAME;
                                         }
                                         
@@ -89,13 +90,13 @@
                                                 . " class='img-thumbnail'"
                                                 . "style='max-height: 75px;' alt='Species Image'"
                                                 . "</td><td class='align-middle'>"
-                                                . "<a class='nav-link' href='speciesdetails.php?id="
-                                                . $row['id'] . "'>" . htmlspecialchars($row['name'])
+                                                . "<a class='nav-link' href='species/speciesdetails.php?id="
+                                                . $row['species_id'] . "'>" . htmlspecialchars($row['name'])
                                                 . "</a></td><td>";
                                         if (isset($_SESSION['user_access_privileges']) &&
                                                 $_SESSION['user_access_privileges'] == 'admin') {
                                             echo "<a class='nav-link'"
-                                                    . "href='removespecies.php?id_to_delete=" . $row['id']
+                                                    . "href='species/removespecies.php?id_to_delete=" . $row['species_id']
                                                     . "'><i class='fas fa-trash-alt'></i></a></td></tr>";
                                         }
                                     }
