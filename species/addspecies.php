@@ -35,7 +35,7 @@
                     $species_trait_text = "";
                     $checked_species_traits = null;
 
-                    $traits = CDB_TRAITS;
+                    $traits = CDB_SPECIES_TRAITS;
 
                     if (isset(
                             $_POST['add_species_submission'],

@@ -37,7 +37,7 @@
                                 or trigger_error('Error connecting to MySQL server for '
                                 . DB_NAME, E_USER_ERROR);
 
-                    $traits = CDB_TRAITS;
+                    $traits = CDB_SPECIES_TRAITS;
                     
                     if (isset($_GET['id_to_edit'])) {
                         $id_to_edit = $_GET['id_to_edit'];
