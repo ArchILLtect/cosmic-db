@@ -3,6 +3,7 @@
 	      Date: 4/20/25
 -->
 <?php
+  require_once('fileconstants.php');
   $page_title = isset($page_title) ? $page_title : "";
 
   if (session_status() == PHP_SESSION_NONE)
@@ -13,8 +14,8 @@
 <nav class="navbar sticky-top navbar-expand-md navbar-dark"
 	  style="background-color: #569f32;">
   <a class="navbar-brand" href="<?= dirname($_SERVER['PHP_SELF']) ?>">
-    <img src="resources/cosmic_db_icon.png" width="30" height="30"
-        class="d-inline-block align-top" alt="Species Rental Icon">
+    <img src="<?= CDB_ICON_PATH ?>" width="30" height="30"
+        class="d-inline-block align-top" alt="Cosmic DB Icon">
     <?= CDB_HOME_PAGE ?>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse"
