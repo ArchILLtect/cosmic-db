@@ -4,5 +4,6 @@
 -->
 <?php
 // Species Listing File Constants
-    define('CDB_UPLOAD_PATH', 'images/');
+    define('CDB_UPLOAD_PATH', $_SERVER['DOCUMENT_ROOT'] . '/cosmic-db/images/');
+    define('CDB_UPLOAD_WEB_PATH', '/cosmic-db/images/');
     define('CDB_MAX_FILE_SIZE', 524288);
