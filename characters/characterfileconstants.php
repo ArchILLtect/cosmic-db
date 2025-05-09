@@ -3,12 +3,20 @@
 	      Date: 4/20/25
 -->
 <?php
-// Species Listing File Constants
-    define('CDB_UPLOAD_PATH', 'images/');
-    define('CDB_MAX_FILE_SIZE', 524288);
-    define('CDB_DEFAULT_SPECIES_FILENAME', 'generic-species.jpg');
-    //define('CDB_DEFAULT_SPECIES_IMAGE', CDB_UPLOAD_PATH . CDB_DEFAULT_SPECIES_FILENAME);
-    define('CDB_TRAITS', ['Aggressive', 'Aquatic',
+
+    // Purpose:         Defines the file constants for the Cosmic Database
+    //                  web application.
+    // Description:     Defines the file constants for the Cosmic Database
+    //                  web application. The file constants are used to
+    //                  set the file paths and names for the images used
+    //                  in the web application. The file constants are
+    //                  defined as constants and are used in the header
+    //                  of each page.
+
+    // Species Listing File Constants
+    define('CDB_DEFAULT_CHARACTER_FILENAME', 'generic-species.jpg');
+    //define('CDB_DEFAULT_CHARACTER_IMAGE', CDB_UPLOAD_PATH . CDB_DEFAULT_SPECIES_FILENAME);
+    define('CDB_CHARACTER_TRAITS', ['Aggressive', 'Aquatic',
         'Bioluminescent', 'Carnivorous', 'Cold-blooded', 'Docile', 'Energy-based', 'Hive-minded',
         'Nomadic', 'Nocturnal', 'Non-sentient', 'Omnivorous', 'Plantoid', 'Parasitic',
         'Photosynthetic', 'Predatory', 'Reptilian', 'Sapient', 'Shape-shifting', 'Sentient',
