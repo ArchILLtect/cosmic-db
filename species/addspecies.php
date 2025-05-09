@@ -44,7 +44,7 @@
                             $_POST['species_description'],
                             $_POST['species_homeworld']
                     )) {
-                        require_once('dbconnection.php');
+                        require_once('../dbconnection.php');
                         require_once('speciesimagefileutil.php');
 
                         $species_name = filter_var($_POST['species_name'],

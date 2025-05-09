@@ -42,7 +42,7 @@
                             FILTER_SANITIZE_SPECIAL_CHARS);
 
                     // Query image file from DB
-                    $sql = "SELECT image_file FROM species WHERE id = ?";
+                    $sql = "SELECT image_file FROM species WHERE species_id = ?";
 
                     $stmt = mysqli_prepare($dbc, $sql);
 
@@ -66,7 +66,7 @@
                         }
                     }
 
-                    $query = "DELETE FROM species WHERE id = $id"; // TODO Why not parameterized?
+                    $query = "DELETE FROM species WHERE species_id = $id"; // TODO Why not parameterized?
 
                     $result = mysqli_query($dbc, $query)
                             or trigger_error('Error querying database species', 
@@ -87,7 +87,7 @@
                     <?php
                         $id = $_GET['id_to_delete'];
                         
-                        $query = "SELECT * FROM species WHERE id = $id"; // TODO Why not parameterized?
+                        $query = "SELECT * FROM species WHERE species_id = $id"; // TODO Why not parameterized?
 
                         $result = mysqli_query($dbc, $query)
                                 or trigger_error('Error querying database species', 
