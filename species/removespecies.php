@@ -4,8 +4,8 @@
 -->
 <?php
     $required_access_level = 'admin';
-    require_once('authorizeaccess.php');
-    require_once('pagetitles.php');
+    require_once('../authorizeaccess.php');
+    require_once('../pagetitles.php');
     $page_title = CDB_REMOVE_SPECIES_PAGE;
 ?>
 <html>
@@ -18,13 +18,14 @@
     </head>
     <body>
         <?php
-            require_once('navmenu.php');
+            require_once('../navmenu.php');
         ?>
         <div class="card">
             <div class="card-body">
                 <h1>Remove a Species</h1>
                 <?php
-                require_once('dbconnection.php');
+                require_once('../dbconnection.php');
+                require_once('../fileconstants.php');
                 require_once('speciesimagefileutil.php');
 
                 $dbc = mysqli_connect(  DB_HOST,
@@ -99,7 +100,7 @@
 
                             if (empty($species_image_file))
                             {
-                                $species_image_file = CDB_UPLOAD_PATH
+                                $species_image_file = CDB_UPLOAD_WEB_PATH
                                         . CDB_DEFAULT_SPECIES_FILENAME;
                             }
                     ?>

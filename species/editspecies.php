@@ -3,8 +3,8 @@
         Date: 4/20/25
 -->
 <?php
-    require_once('authorizeaccess.php');
-    require_once('pagetitles.php');
+    require_once('../authorizeaccess.php');
+    require_once('../pagetitles.php');
     $page_title = CDB_EDIT_SPECIES_PAGE;
 ?>
 <!DOCTYPE html>
@@ -18,7 +18,8 @@
     </head>
     <body>
         <?php
-            require_once('navmenu.php');
+            require_once('../navmenu.php');
+            require_once('../fileconstants.php');
             require_once('speciesfileconstants.php');
         ?>
         <div class="card">
@@ -26,7 +27,7 @@
                 <h1>Edit a Species</h1>
                 <hr/>
                 <?php
-                    require_once('dbconnection.php');
+                    require_once('../dbconnection.php');
                     require_once('speciesimagefileutil.php');
 
                     $dbc = mysqli_connect(  DB_HOST,
@@ -58,7 +59,7 @@
                             
                             if (empty($species_image_file))
                             {
-                                $species_image_file_displayed = CDB_UPLOAD_PATH
+                                $species_image_file_displayed = CDB_UPLOAD_WEB_PATH
                                         . CDB_DEFAULT_SPECIES_FILENAME;
                             }
                             else
@@ -98,7 +99,7 @@
 
                         if (empty($species_image_file))
                         {
-                            $species_image_file_displayed = CDB_UPLOAD_PATH
+                            $species_image_file_displayed = CDB_UPLOAD_WEB_PATH
                                     . CDB_DEFAULT_SPECIES_FILENAME;
                         }
                         else

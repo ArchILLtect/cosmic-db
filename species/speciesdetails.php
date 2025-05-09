@@ -5,7 +5,7 @@
 <?php
     session_start();
 
-    require_once('pagetitles.php');
+    require_once('../pagetitles.php');
     $page_title = CDB_DETAILS_PAGE;
 ?>
 <!DOCTYPE html>
@@ -19,7 +19,7 @@
     </head>
     <body>
         <?php
-            require_once('navmenu.php');
+            require_once('../navmenu.php');
         ?>
         <div class="card">
             <div class="card-body">
@@ -28,7 +28,8 @@
                 <?php
                     if (isset($_GET['id'])):
 
-                        require_once('dbconnection.php');
+                        require_once('../dbconnection.php');
+                        require_once('../fileconstants.php');
                         require_once('speciesfileconstants.php');
 
                         $id = $_GET['id'];
@@ -41,7 +42,7 @@
                                 or trigger_error('Error connecting to MySQL server for '
                                 . DB_NAME, E_USER_ERROR);
 
-                        $sql = "SELECT * FROM species WHERE id = ?";
+                        $sql = "SELECT * FROM species WHERE species_id = ?";
 
                         $stmt = mysqli_prepare($dbc, $sql);
 
@@ -61,7 +62,7 @@
                         
                         if (empty($species_image_file)):
 
-                            $species_image_file = CDB_UPLOAD_PATH
+                            $species_image_file = CDB_UPLOAD_WEB_PATH
                             . CDB_DEFAULT_SPECIES_FILENAME;
 
                         endif;
@@ -99,7 +100,7 @@
                       $_SESSION['user_access_privileges'] == 'admin'):
                 ?>
                 <nav class='nav-link'>Feel free to
-                        <a href="editspecies.php?id_to_edit=<?= $row['id'] ?>">Edit Details</a>
+                        <a href="editspecies.php?id_to_edit=<?= $row['species_id'] ?>">Edit Details</a>
                         any time.
                 </nav>
                 <?php endif; ?>

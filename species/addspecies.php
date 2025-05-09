@@ -3,8 +3,8 @@
         Date: 4/20/25
 -->
 <?php
-    require_once('authorizeaccess.php');
-    require_once('pagetitles.php');
+    require_once('../authorizeaccess.php');
+    require_once('../pagetitles.php');
     $page_title = CDB_ADD_SPECIES_PAGE;
 ?>
 <!DOCTYPE html>
@@ -18,7 +18,8 @@
     </head>
     <body>
         <?php
-            require_once('navmenu.php');
+            require_once('../navmenu.php');
+            require_once('../fileconstants.php');
             require_once('speciesfileconstants.php');
         ?>
         <div class="card">
@@ -99,7 +100,7 @@
 
                         if(empty($species_image_file_path))
                         {
-                            $species_image_file_path = CDB_UPLOAD_PATH
+                            $species_image_file_path = CDB_UPLOAD_WEB_PATH
                                     . CDB_DEFAULT_SPECIES_FILENAME;
                         }
 

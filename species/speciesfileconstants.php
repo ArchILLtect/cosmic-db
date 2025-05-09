@@ -15,7 +15,6 @@
 
     // Species Listing File Constants
     define('CDB_DEFAULT_SPECIES_FILENAME', 'generic-species.jpg');
-    //define('CDB_DEFAULT_SPECIES_IMAGE', CDB_UPLOAD_PATH . CDB_DEFAULT_SPECIES_FILENAME);
     define('CDB_SPECIES_TRAITS', ['Aggressive', 'Aquatic',
         'Bioluminescent', 'Carnivorous', 'Cold-blooded', 'Docile', 'Energy-based', 'Hive-minded',
         'Nomadic', 'Nocturnal', 'Non-sentient', 'Omnivorous', 'Plantoid', 'Parasitic',
