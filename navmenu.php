@@ -13,7 +13,7 @@
 ?>
 <nav class="navbar sticky-top navbar-expand-md navbar-dark"
 	  style="background-color: #569f32;">
-  <a class="navbar-brand" href="<?= dirname($_SERVER['PHP_SELF']) ?>">
+  <a class="navbar-brand" href="/cosmic-db/">
     <img src="<?= CDB_ICON_PATH ?>" width="30" height="30"
         class="d-inline-block align-top" alt="Cosmic DB Icon">
     <?= CDB_HOME_PAGE ?>
@@ -26,23 +26,23 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav ml-auto">
       <a class="nav-item nav-link<?= $page_title == CDB_HOME_PAGE ? ' active' : '' ?>"
-          href="<?= dirname($_SERVER['PHP_SELF']) ?>">Home </a>
+          href="/cosmic-db/">Home </a>
       <?php if (isset($_SESSION['user_access_privileges']) &&
           ($_SESSION['user_access_privileges'] == 'user' ||
           $_SESSION['user_access_privileges'] == 'admin')): ?>
         <a class="nav-item nav-link<?= $page_title == CDB_ADD_SPECIES_PAGE ? ' active' : '' ?>"
-            href="species/addspecies.php">Add Species</a>
+            href="/cosmic-db/species/addspecies.php">Add Species</a>
         <a class="nav-item nav-link<?= $page_title == CDB_ADD_SPECIES_PAGE ? ' active' : '' ?>"
-            href="characters/addcharacter.php">Add Character</a>
+            href="/cosmic-db/characters/addcharacter.php">Add Character</a>
       <?php endif; ?>
       <?php if (!isset($_SESSION['user_name'])): ?>
         <a class="nav-item nav-link<?= $page_title == CDB_HOME_PAGE ? ' active' : '' ?>"
-            href="login.php">Login </a>
+            href="/cosmic-db/login.php">Login </a>
         <a class="nav-item nav-link<?= $page_title == CDB_SIGNUP_PAGE ? ' active' : '' ?>"
-            href="signup.php">Signup </a>
+            href="/cosmic-db/signup.php">Signup </a>
       <?php else: ?>
         <a class="nav-item nav-link"
-            href="logout.php">Logout (<?= $_SESSION['user_name'] ?>)</a>
+            href="/cosmic-db/logout.php">Logout (<?= $_SESSION['user_name'] ?>)</a>
       <?php endif; ?>
     </div>
   </div>
