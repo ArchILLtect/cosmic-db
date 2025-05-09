@@ -6,7 +6,7 @@
     session_start();
 
     require_once('../pagetitles.php');
-    $page_title = CDB_DETAILS_PAGE;
+    $page_title = CDB_SPECIES_DETAILS_PAGE;
 ?>
 <!DOCTYPE html>
 <html>
@@ -60,12 +60,14 @@
                         
                         $species_image_file = $row['image_file'];
                         
-                        if (empty($species_image_file)):
+                        if (empty($species_image_file)){
 
                             $species_image_file = CDB_UPLOAD_WEB_PATH
-                            . CDB_DEFAULT_SPECIES_FILENAME;
+                                    . CDB_DEFAULT_SPECIES_FILENAME;
 
-                        endif;
+                        } else {
+                            $species_image_file = CDB_UPLOAD_WEB_PATH . $row['image_file'];
+                        }
                 ?>
                 <h2><?= htmlspecialchars($row['name']) ?></h2>
                 <div class="row">

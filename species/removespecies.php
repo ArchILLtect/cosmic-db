@@ -83,7 +83,7 @@
                 elseif (isset($_GET['id_to_delete'])):
                     ?>
                     <h3 class="text-danger">Confirm Deletion of the Following
-                            Species Details</h3>
+                            Species</h3>
                     <?php
                         $id = $_GET['id_to_delete'];
                         
