@@ -62,6 +62,7 @@
                     $character = new Character($dbc);
                     $result = $character->queryAll();
 
+
                     if (mysqli_num_rows($result) > 0):
                 ?>
                     <h2 class="text-center">Characters</h2>
@@ -94,6 +95,7 @@
                             .  DB_NAME, E_USER_ERROR);
 
                     $species = new Species($dbc);
+                    /** @var mysqli_result $result */
                     $result = $species->queryAll();
 
                     if (mysqli_num_rows($result) > 0):
