@@ -37,7 +37,7 @@
                 'image/jpg', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'
             ];
             
-            if (in_array($image_type, $allowed_image_types))
+            if (!in_array($image_type, $allowed_image_types))
             {
                 if (empty($error_message))
                 {

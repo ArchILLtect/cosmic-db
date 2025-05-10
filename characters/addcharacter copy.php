@@ -19,10 +19,7 @@
     <body>
         <?php
             require_once('../navmenu.php');
-            require_once('../dbconnection.php');
             require_once('../fileconstants.php');
-            require_once('../classes/character.php');
-            require_once('../classes/Species.php');
             require_once('characterfileconstants.php');
         ?>
         <div class="card">
@@ -35,7 +32,6 @@
                     
                     $character_name = "";
                     $character_age = "";
-                    $species_id = "";
                     $character_role = "";
                     $character_personality = "";
                     $character_evo_powers = "";
@@ -49,27 +45,9 @@
                     $traits = CDB_CHARACTER_TRAITS;
                     $skills = CDB_CHARACTER_SKILLS;
 
-                    $dbc = mysqli_connect(  DB_HOST,
-                            DB_USER,
-                            DB_PASSWORD,
-                            DB_NAME,
-                            DB_PORT)
-                        or trigger_error('Error connecting to MySQL server for '
-                        . DB_NAME, E_USER_ERROR)
-                    ;
-
-                    $speciesObj = new Species($dbc);
-                    /** @var mysqli_result $species */
-                    $species = $speciesObj->queryAll();
-
-                    if (!$species) {
-                        trigger_error("Query failed: " . mysqli_error($dbc), E_USER_ERROR);
-                    }
-
                     if (isset(
                             $_POST['add_character_submission'],
                             $_POST['character_name'],
-                            $_POST['species_id'],
                             $_POST['character_age'],
                             $_POST['character_role'],
                             $_POST['character_personality'],
@@ -78,12 +56,11 @@
                             $_POST['character_notes'],
 
                     )) {
+                        require_once('../dbconnection.php');
                         require_once('characterimagefileutil.php');
 
                         $character_name = filter_var($_POST['character_name'],
                                 FILTER_SANITIZE_SPECIAL_CHARS);
-                        $species_id = filter_var($_POST['species_id'],
-                                FILTER_SANITIZE_NUMBER_INT);
                         $character_age = filter_var($_POST['character_age'],
                                 FILTER_SANITIZE_NUMBER_INT);
                         $character_role = filter_var($_POST['character_role'],
@@ -127,30 +104,23 @@
                                 DB_NAME,
                                 DB_PORT)
                             or trigger_error('Error connecting to MySQL server for '
-                            . DB_NAME, E_USER_ERROR)
-                        ;
-
-                        $character = new Character($dbc);
+                            . DB_NAME, E_USER_ERROR);
                     
                         $character_image_file_path = addCharacterImageFileReturnPathLocation();
+
+                        $sql = "INSERT INTO characters (name, age, role, personality, evo_powers, history, notes, "
+                                . "traits, skills, image_file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                         
-                        $character->setName($_POST['character_name']);
-                        $character->setAge($_POST['character_age']);
-                        $character->setSpeciesId($_POST['species_id']);
-                        $character->setRole($_POST['character_role']);
-                        $character->setPersonality($_POST['character_personality']);
-                        $character->setEvoPowers($_POST['character_evo_powers']);
-                        $character->setHistory($_POST['character_history']);
-                        $character->setNotes($_POST['character_notes']);
-                        $character->setTraits($character_traits_text);
-                        $character->setSkills($character_skills_text);
-                        $character->setImageFile($_FILES['character_image_file']['name']);
-                        $character->setSpeciesId($_POST['species_id']);
-                    
-                        if ($character->insert()) {
-                            echo "<p>Character added successfully!</p>";
+                        $stmt = mysqli_prepare($dbc, $sql);
+
+                        mysqli_stmt_bind_param($stmt, "sissssssss", $character_name, $character_age,
+                                $character_role, $character_personality, $character_evo_powers, $character_history, $character_notes,
+                                $character_traits_text, $character_skills_text, $character_image_file_path);
+                        
+                        if (mysqli_stmt_execute($stmt)) {
+                            echo "Character added successfully!";
                         } else {
-                            echo "<p>Failed to add character.</p>";
+                            echo "Error adding character.";
                         }
 
                         if(empty($character_image_file_path))
@@ -172,15 +142,6 @@
                     <div class="col">
                         <table class="table table-striped">
                             <tbody>
-                                <tr>
-                                    <th scope="row">Name</th>
-                                    <td><?= $character_name ?></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Species</th>
-                                    <td><?= $species_id ?></td>
-                                </tr>
-
                                 <tr>
                                     <th scope="row">Age</th>
                                     <td><?= $character_age ?></td>
@@ -245,22 +206,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="species_id" class="col-sm-3 col-form-label-lg">Species</label>
-                        <div class="col-sm-8">
-                            <select id="species_id" name="species_id" class="form-control" required>
-                                <option value="">-- Select a Species --</option>
-                                <?php while ($row = mysqli_fetch_assoc($species)): ?>
-                                    <option value="<?= $row['species_id'] ?>">
-                                        <?= htmlspecialchars($row['name']) ?>
-                                    </option>
-                                <?php endwhile; ?>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please select a valid species.
-                            </div>
-                        </div>
-                    </div>
                     <div class="from-group row">
                         <label for="character_age" class="col-sm-3 col-form-label-lg">
                             Age
@@ -287,6 +232,8 @@
                             </div>
                         </div>
                     </div>
+
+
                     <div class="from-group row">
                         <label for="character_personality" class="col-sm-3 col-form-label-lg">
                             Personality
@@ -300,6 +247,8 @@
                             </div>
                         </div>
                     </div>
+
+
                     <div class="from-group row">
                         <label for="character_evo_powers" class="col-sm-3 col-form-label-lg">
                             Evo Powers
@@ -313,6 +262,8 @@
                             </div>
                         </div>
                     </div>
+
+
                     <div class="from-group row">
                         <label for="character_history" class="col-sm-3 col-form-label-lg">
                             History
@@ -326,6 +277,8 @@
                             </div>
                         </div>
                     </div>
+
+
                     <div class="from-group row">
                         <label for="character_notes" class="col-sm-3 col-form-label-lg">
                             Notes
