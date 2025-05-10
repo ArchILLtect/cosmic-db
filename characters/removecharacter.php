@@ -8,6 +8,7 @@
     require_once('../pagetitles.php');
     $page_title = CDB_REMOVE_CHARACTER_PAGE;
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <title>Remove a Character</title>
@@ -21,12 +22,13 @@
             require_once('../navmenu.php');
         ?>
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" style="margin: 0 10% 0 10%;">
                 <h1>Remove a Character</h1>
                 <?php
                 require_once('../dbconnection.php');
                 require_once('../fileconstants.php');
                 require_once('characterfileconstants.php');
+                require_once('characterimagefileutil.php');
 
                 $dbc = mysqli_connect(  DB_HOST,
                                         DB_USER,
@@ -39,10 +41,10 @@
                 if (isset($_POST['delete_character_submission']) && isset($_POST['id'])):
                 
                     $id = filter_var($_POST['id'],
-                            FILTER_SANITIZE_SPECIAL_CHARS);
+                            FILTER_SANITIZE_NUMBER_INT);
 
                     // Query image file from DB
-                    $sql = "SELECT image_file FROM character WHERE character_id = ?";
+                    $sql = "SELECT image_file FROM characters WHERE character_id = ?";
 
                     $stmt = mysqli_prepare($dbc, $sql);
 
@@ -65,24 +67,28 @@
                             removeCharacterImageFile($character_image_file);
                         }
                     }
-
-                    $sql = "DELETE FROM character WHERE character_id = ?";
-
+                    $sql = "DELETE FROM character_species WHERE character_id = ?";
                     $stmt = mysqli_prepare($dbc, $sql);
-
                     mysqli_stmt_bind_param($stmt, "i", $id);
-
                     mysqli_stmt_execute($stmt)
                             or trigger_error('Error querying database character', 
                             E_USER_ERROR)
                     ;
 
-                    header("Location: index.php");
+                    $sql = "DELETE FROM characters WHERE character_id = ?";
+                    $stmt = mysqli_prepare($dbc, $sql);
+                    mysqli_stmt_bind_param($stmt, "i", $id);
+                    mysqli_stmt_execute($stmt)
+                            or trigger_error('Error querying database character', 
+                            E_USER_ERROR)
+                    ;
+
+                    header("Location: /cosmic-db/index.php");
                     exit;
                     
                 elseif (isset($_POST['do_not_delete_character_submission'])):
 
-                    header("Location: index.php");
+                    header("Location: /cosmic-db/index.php");
                     exit;
                 
                 elseif (isset($_GET['id_to_delete'])):
@@ -191,12 +197,13 @@
                         endif;
                 else: // Unintended page link = No character to remove, go back to index
 
-                    header("Location: index.php");
+                    header("Location: /cosmic-db/index.php");
                     exit;
                 endif;
                 ?>
             </div>
         </div>
+        <?php require_once('../footer.php'); ?>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
                 crossorigin="anonymous"></script>

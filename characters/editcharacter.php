@@ -3,6 +3,7 @@
         Date: 4/20/25
 -->
 <?php
+    $required_access_level = 'admin';
     require_once('../authorizeaccess.php');
     require_once('../pagetitles.php');
     $page_title = CDB_EDIT_CHARACTER_PAGE;
@@ -24,7 +25,7 @@
 
         ?>
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" style="margin: 0 10% 0 10%;">
                 <h1>Edit a Character</h1>
                 <hr/>
                 <?php
@@ -84,12 +85,11 @@
                             $_POST['character_name'],
                             $_POST['character_age'],
                             $_POST['character_role'],
-                            $_POST['personality'],
-                            $_POST['evo_powers'],
-                            $_POST['history'],
-                            $_POST['notes'],
-                            $_POST['id_to_update'],
-                            $_POST['character_image_file']
+                            $_POST['character_personality'],
+                            $_POST['character_evo_powers'],
+                            $_POST['character_history'],
+                            $_POST['character_notes'],
+                            $_POST['id_to_update']
                     )) {
 
                         $character_name = filter_var($_POST['character_name'],
@@ -98,13 +98,13 @@
                                 FILTER_SANITIZE_NUMBER_INT);
                         $character_role = filter_var($_POST['character_role'],
                                 FILTER_SANITIZE_SPECIAL_CHARS);
-                        $character_role = filter_var($_POST['personality'],
+                        $character_personality = filter_var($_POST['character_personality'],
                                 FILTER_SANITIZE_SPECIAL_CHARS);
-                        $character_role = filter_var($_POST['evo_powers'],
+                        $character_evo_powers = filter_var($_POST['character_evo_powers'],
                                 FILTER_SANITIZE_SPECIAL_CHARS);
-                        $character_role = filter_var($_POST['history'],
+                        $character_history = filter_var($_POST['character_history'],
                                 FILTER_SANITIZE_SPECIAL_CHARS);
-                        $character_role = filter_var($_POST['notes'],
+                        $character_notes = filter_var($_POST['character_notes'],
                                 FILTER_SANITIZE_SPECIAL_CHARS);
                         $checked_character_traits = $_POST['character_trait_checkbox'];
                         $checked_character_skills = $_POST['character_skill_checkbox'];
@@ -161,9 +161,9 @@
                                 $character_image_file = $character_image_file_path;
                             }
 
-                            $sql = "UPDATE character SET name = ?, "
-                                    . "age = ?, role = ?, personalty = ?, evo_powers = ?, history = ?, "
-                                    . "notes = ?, traits = ?, skills = ?, image_file = ? WHERE id = ?";
+                            $sql = "UPDATE characters SET name = ?, "
+                                    . "age = ?, role = ?, personality = ?, evo_powers = ?, history = ?, "
+                                    . "notes = ?, traits = ?, skills = ?, image_file = ? WHERE character_id = ?";
                             
                             $stmt = mysqli_prepare($dbc, $sql);
 
@@ -186,7 +186,7 @@
                                     . "</p></h5>";
                         }
                     } else { // Unintended page link - No characters to edit, link back to index
-                        header("Location: index.php");
+                        header("Location: /cosmic-db/index.php");
                         exit;
                     }
                 ?>
@@ -364,6 +364,7 @@
                                 alt="Character Image">
                     </div>
                 </div>
+                <?php require_once('../footer.php'); ?>
                 <script>
                     // JS for disabling form submissions if there are invalid fields
                     (function() {
