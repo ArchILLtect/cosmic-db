@@ -27,14 +27,14 @@
         ?>
         <div class="card">
             <div class="card-body">
-                <h1><?= $page_title ?></h1>
+                <h1 class="text-center"><?= $page_title ?></h1>
                 <?php
                     if (
                         isset($_SESSION['user_name']) &&
                         isset($_SESSION['user_access_privileges'])
                     ):
                 ?>
-                <h3>
+                <h3 class="text-center mb-5">
                     Welcome,
                     <span class="text-success font-weight-bold">
                         <?= $_SESSION['user_name'] ?>
@@ -66,12 +66,12 @@
                     if (mysqli_num_rows($result) > 0):
                 ?>
                     <h2 class="text-center">Characters</h2>
-                
+                    <div class="p-5">
                 <?php
-                    echo "<table class='table'>";
+                    echo "<table class='table table-hover table-striped'>";
                     echo "<tr><th>Image</th><th>Name</th><th>Species</th><th></th></tr>";
                     echo $character->displayAsTable($result);
-                    echo "</table>";
+                    echo "</table></div>";
 
                     else:
                 ?>
@@ -101,12 +101,13 @@
                     if (mysqli_num_rows($result) > 0):
                 ?>
                     <h2 class="text-center">Species</h2>
+                    <div class="p-5">
                 <?php
                     
-                    echo "<table class='table table-hover'>";
+                    echo "<table class='table table-hover table-striped'><tbody class='p-5'>";
                     echo "<tr><th>Image</th><th>Name</th><th></th></tr>";
                     echo $species->displayAsTable($result);
-                    echo "</table>";
+                    echo "</tbody></table></div>";
 
                     else:
                 ?>
@@ -116,6 +117,7 @@
                 ?>
             </div>
         </div>
+        <?php require_once('footer.php'); ?>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
                 crossorigin="anonymous"></script>

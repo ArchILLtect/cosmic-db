@@ -42,7 +42,7 @@
             href="/cosmic-db/signup.php">Signup </a>
       <?php else: ?>
         <a class="nav-item nav-link"
-            href="/cosmic-db/logout.php">Logout (<?= $_SESSION['user_name'] ?>)</a>
+            href="/cosmic-db/editprofile.php">Profile (<?= $_SESSION['user_name'] ?>)</a>
       <?php endif; ?>
     </div>
   </div>

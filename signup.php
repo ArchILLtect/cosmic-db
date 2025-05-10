@@ -128,6 +128,7 @@
 				<?php endif; ?>
 			</div>
 		</div>
+		<?php require_once('footer.php'); ?>
 		<script>
 			// JS for disabling form submissions if there are invalid fields
 			(function() {
