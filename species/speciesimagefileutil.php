@@ -37,7 +37,7 @@
                 'image/jpg', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'
             ];
             
-            if (in_array($image_type, $allowed_image_types))
+            if (!in_array($image_type, $allowed_image_types))
             {
                 if (empty($error_message))
                 {
@@ -58,7 +58,7 @@
     }
     
     /** 
-     * Purpose:         Moves an uploaded species image file to the ML_UPLOAD_PATH (images/)
+     * Purpose:         Moves an uploaded species image file to the CDB_UPLOAD_PATH (images/)
      *                  folder and return the path location.
      *
      * Description:     Moves an uploaded species image file from the temporary server location
