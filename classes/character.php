@@ -257,7 +257,7 @@ class Character
             $output .= "<img src='images/$character_image_file' class='img-thumbnail' style='max-height: 100px;'></a></td>";
             $output .= "<td><a href='/cosmic-db/characters/characterdetails.php?id={$row['character_id']}'>" . htmlspecialchars($row['name']) . "</a></td>";
             $output .= "<td>" . htmlspecialchars($row['species_name']) . "</td>";
-            $output .= "<td class='text-right align-middle'><a href='/cosmic-db/removecharacter.php?id={$row['character_id']}'><i class='fas fa-trash'></i></a></td>";
+            $output .= "<td class='text-right align-middle'><a href='/cosmic-db/characters/removecharacter.php?id={$row['character_id']}'><i class='fas fa-trash'></i></a></td>";
             $output .= "</tr>";
         }
         return $output;
