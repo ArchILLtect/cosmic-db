@@ -22,7 +22,7 @@
             require_once('../navmenu.php');
         ?>
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" style="margin: 0 10% 0 10%;">
                 <h1>Species Details</h1>
                 <hr/>
                 <?php
@@ -120,6 +120,7 @@
                 ?>
             </div>
         </div>
+        <?php require_once('../footer.php'); ?>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
                 crossorigin="anonymous"></script>

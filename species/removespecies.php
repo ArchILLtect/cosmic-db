@@ -8,6 +8,7 @@
     require_once('../pagetitles.php');
     $page_title = CDB_REMOVE_SPECIES_PAGE;
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <title>Remove a Species</title>
@@ -22,7 +23,7 @@
         ?>
         <div class="card">
             <div class="card-body">
-                <h1>Remove a Species</h1>
+                <div class="card-body" style="margin: 0 10% 0 10%;">
                 <?php
                 require_once('../dbconnection.php');
                 require_once('../fileconstants.php');
@@ -39,7 +40,7 @@
                 if (isset($_POST['delete_species_submission']) && isset($_POST['id'])):
                 
                     $id = filter_var($_POST['id'],
-                            FILTER_SANITIZE_SPECIAL_CHARS);
+                            FILTER_SANITIZE_NUMBER_INT);
 
                     // Query image file from DB
                     $sql = "SELECT image_file FROM species WHERE species_id = ?";
@@ -72,12 +73,12 @@
                             or trigger_error('Error querying database species', 
                             E_USER_ERROR);
                     
-                    header("Location: index.php");
+                    header("Location: /cosmic-db/index.php");
                     exit;
                     
                 elseif (isset($_POST['do_not_delete_species_submission'])):
 
-                    header("Location: index.php");
+                    header("Location: /cosmic-db/index.php");
                     exit;
                 
                 elseif (isset($_GET['id_to_delete'])):
@@ -102,7 +103,10 @@
                             {
                                 $species_image_file = CDB_UPLOAD_WEB_PATH
                                         . CDB_DEFAULT_SPECIES_FILENAME;
+                            } else {
+                                $species_image_file = CDB_UPLOAD_WEB_PATH . $row['image_file'];
                             }
+                            
                     ?>
                     <h1><?= htmlspecialchars($row['name']) ?></h1>
                     <div class='row'>
@@ -157,12 +161,13 @@
                         endif;
                 else: // Unintended page link = No species to remove, go back to index
 
-                    header("Location: index.php");
+                    header("Location: /cosmic-db/index.php");
                     exit;
                 endif;
                 ?>
             </div>
         </div>
+        <?php require_once('../footer.php'); ?>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
                 crossorigin="anonymous"></script>
