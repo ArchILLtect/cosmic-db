@@ -109,7 +109,7 @@ class Species
     {
         $query = "INSERT INTO species (name, description, homeworld, traits, image_file) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->dbc->prepare($query);
-        $stmt->bind_param('ssssi', $this->name, $this->description, $this->homeworld, $this->traits, $this->image_file);
+        $stmt->bind_param('sssss', $this->name, $this->description, $this->homeworld, $this->traits, $this->image_file);
         return $stmt->execute();
     }
 
