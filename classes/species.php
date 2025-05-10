@@ -78,7 +78,8 @@ class Species
                 $species_image_file = CDB_DEFAULT_SPECIES_FILENAME;
             }
             $output .= "<tr>";
-            $output .= "<td><img src='images/$species_image_file' class='img-thumbnail' style='max-height: 75px;'></td>";
+            $output .= "<td><a href='/cosmic-db/species/speciesdetails.php?id={$row['species_id']}'>";
+            $output .= "<img src='images/$species_image_file' class='img-thumbnail' style='max-height: 100px;'></a></td>";
             $output .= "<td><a href='/cosmic-db/species/speciesdetails.php?id={$row['species_id']}'>" . htmlspecialchars($row['name']) . "</a></td>";
             $output .= "<td class='text-right align-middle'><a href='/cosmic-db/species/removespecies.php?id={$row['species_id']}'><i class='fas fa-trash'></i></a></td>";
             $output .= "</tr>";
