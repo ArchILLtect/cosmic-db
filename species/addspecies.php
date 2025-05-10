@@ -24,7 +24,7 @@
             require_once('speciesfileconstants.php');
         ?>
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" style="margin: 0 10% 0 10%;">
                 <h1>Add a Species</h1>
                 <hr/>
                 <?php
@@ -75,15 +75,16 @@
                         if(empty($file_error_message))
                         {
 
-                            $dbc = mysqli_connect(  DB_HOST,
-                                    DB_USER,
-                                    DB_PASSWORD,
-                                    DB_NAME,
-                                    DB_PORT)
-                                or trigger_error('Error connecting to MySQL server for '
-                                . DB_NAME, E_USER_ERROR);
+                        $dbc = mysqli_connect(  DB_HOST,
+                                DB_USER,
+                                DB_PASSWORD,
+                                DB_NAME,
+                                DB_PORT)
+                            or trigger_error('Error connecting to MySQL server for '
+                            . DB_NAME, E_USER_ERROR);
                         
                         $species_image_file_path = addSpeciesImageFileReturnPathLocation();
+                        $species_image_file = $_FILES['species_image_file']['name'];
 
                         $species = new Species($dbc);
                         
@@ -103,6 +104,9 @@
                         {
                             $species_image_file_path = CDB_UPLOAD_WEB_PATH
                                     . CDB_DEFAULT_SPECIES_FILENAME;
+                        } else {
+                            $species_image_file_path = CDB_UPLOAD_WEB_PATH
+                                    . $species_image_file;
                         }
 
                         $display_add_species_form = false;
@@ -112,7 +116,7 @@
                 <h1><?= $species_name ?></h1>
                 <div class="row">
                     <div class="col-2">
-                        <img src="<?= htmlspecialchars($species_image_file_path) ?>" class="img-thumbnail"
+                        <img src="<?= $species_image_file_path ?>" class="img-thumbnail"
                                 style="max-height: 200px;" alt="Species Image">
                     </div>
                     <div class="col">
@@ -250,6 +254,7 @@
                 ?>
             </div>
         </div>
+        <?php require_once('../footer.php'); ?>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
                 crossorigin="anonymous"></script>
