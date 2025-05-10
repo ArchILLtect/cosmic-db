@@ -257,8 +257,16 @@ class Character
             $output .= "<img src='images/$character_image_file' class='img-thumbnail' style='max-height: 100px;'></a></td>";
             $output .= "<td><a href='/cosmic-db/characters/characterdetails.php?id={$row['character_id']}'>" . htmlspecialchars($row['name']) . "</a></td>";
             $output .= "<td>" . htmlspecialchars($row['species_name']) . "</td>";
-            $output .= "<td class='text-right align-middle'><a href='/cosmic-db/characters/removecharacter.php?id={$row['character_id']}'><i class='fas fa-trash'></i></a></td>";
+            if (isset($_SESSION['user_access_privileges']) && $_SESSION['user_access_privileges'] === 'admin') {
+                $output .= "<td class='text-right align-middle'>
+                    <a href='/cosmic-db/characters/removecharacter.php?id_to_delete={$row['character_id']}'>
+                    <i class='fas fa-trash'></i></a></td>"
+                ;
+            } else {
+                $output .= "<td></td>";
+            }
             $output .= "</tr>";
+
         }
         return $output;
     }
