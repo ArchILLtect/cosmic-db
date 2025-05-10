@@ -20,9 +20,7 @@
         <?php
             require_once('../navmenu.php');
             require_once('../fileconstants.php');
-            require_once('../classes/Species.php');
             require_once('speciesfileconstants.php');
-            $species = new Species($dbc);
         ?>
         <div class="card">
             <div class="card-body">
@@ -86,7 +84,6 @@
                         
                         $species_image_file_path = addSpeciesImageFileReturnPathLocation();
 
-                        /*
                         $sql = "INSERT INTO species (name, description, homeworld, "
                                 . "traits, image_file) VALUES (?, ?, ?, ?, ?)";
                         
@@ -99,22 +96,7 @@
                             echo "Species added successfully!";
                         } else {
                             echo "Error adding species.";
-                        }*/
-
-                        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                            $species->setName($_POST['name']);
-                            $species->setDescription($_POST['description']);
-                            $species->setHomeworld($_POST['homeworld']);
-                            $species->setTraits(implode(',', $_POST['traits']));
-                            //$species->setImageFile($_FILES['species_image_file']['name']);
-                        
-                            if ($species->insert()) {
-                                echo "<p>Species added successfully!</p>";
-                            } else {
-                                echo "<p>Failed to add species.</p>";
-                            }
                         }
-
 
                         if(empty($species_image_file_path))
                         {

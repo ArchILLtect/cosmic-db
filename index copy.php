@@ -49,7 +49,6 @@
                     require_once('fileconstants.php');
                     require_once('characters/characterfileconstants.php');
 
-
                     $dbc = mysqli_connect(  DB_HOST,
                                             DB_USER,
                                             DB_PASSWORD,
@@ -87,7 +86,7 @@
                                         $species_image_file = CDB_UPLOAD_WEB_PATH
                                                 . CDB_DEFAULT_SPECIES_FILENAME;
                                         */
-                                        $character_image_file = CDB_DEFAULT_SPECIES_FILENAME;
+                                        $species_image_file = CDB_DEFAULT_SPECIES_FILENAME;
                                     }
                                     // TODO: Fix fileutil to add 'images/' to the path, and remove it from here
                                     echo "<tr><td class='w-50'><img src=" . "images/" . htmlspecialchars($character_image_file)
@@ -117,9 +116,7 @@
                 <?php
                     require_once('dbconnection.php');
                     require_once('fileconstants.php');
-                    require_once('classes/Species.php');
                     require_once('species/speciesfileconstants.php');
-                    $species = new Species($dbc);
 
                     $dbc = mysqli_connect(  DB_HOST,
                                             DB_USER,
@@ -129,20 +126,55 @@
                             or trigger_error('Error connecting to MySQL server for'
                             .  DB_NAME, E_USER_ERROR);
 
-                    $species = new Species($dbc);
-                    $result = $species->queryAll();
+                    $query = "SELECT species_id, name, image_file FROM species ORDER BY name";
+
+                    $result = mysqli_query($dbc, $query)
+                            or trigger_error('Error querying database species', 
+                            E_USER_ERROR);
 
                     if (mysqli_num_rows($result) > 0):
                 ?>
                     <h2 class="text-center">Species</h2>
-                <?php
-                    
-                    echo "<table class='table table-hover'>";
-                    echo "<tr><th>Image</th><th>Name</th><th></th></tr>";
-                    echo $species->displayAsTable($result);
-                    echo "</table>";
-                ?>
-
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Species Name</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                while($row = mysqli_fetch_assoc($result))
+                                {
+                                    $species_image_file = $row['image_file'];
+                                    
+                                    if (empty($species_image_file))
+                                    {
+                                        /* TODO: Return to this code when the fileutil is fixed
+                                        $species_image_file = CDB_UPLOAD_WEB_PATH
+                                                . CDB_DEFAULT_SPECIES_FILENAME;
+                                        */
+                                        $species_image_file = CDB_DEFAULT_SPECIES_FILENAME;
+                                    }
+                                    // TODO: Fix fileutil to add 'images/' to the path, and remove it from here
+                                    echo "<tr><td class='w-50'><img src=" . "images/" . htmlspecialchars($species_image_file)
+                                            . " class='img-thumbnail'"
+                                            . "style='max-height: 75px;' alt='Species Image'"
+                                            . "</td><td class='align-middle'>"
+                                            . "<a class='nav-link' href='species/speciesdetails.php?id="
+                                            . $row['species_id'] . "'>" . htmlspecialchars($row['name'])
+                                            . "</a></td><td class='text-right align-middle'>";
+                                    if (isset($_SESSION['user_access_privileges']) &&
+                                            $_SESSION['user_access_privileges'] == 'admin') {
+                                        echo "<a class='nav-link'"
+                                                . "href='species/removespecies.php?id_to_delete=" . $row['species_id']
+                                                . "'><i class='fas fa-trash-alt'></i></a></td></tr>";
+                                    }
+                                }
+                            ?>
+                        </tbody>
+                    </table>        
                 <?php
                     else:
                 ?>
