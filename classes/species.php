@@ -3,13 +3,14 @@
 	      Date: 4/20/25
 -->
 <?php
-// Species.php
-//require_once($_SERVER['DOCUMENT_ROOT'] . '/../fileconstants/fileconstants.php'); // adjust path if needed
-//require_once($_SERVER['DOCUMENT_ROOT'] . '../dbconnection.php'); // database connection
-
+/**
+ * Class representing a species in the Cosmic Database
+ * This class handles the properties and methods related to species,
+ * including database interactions for inserting and querying species data.
+ * It also provides methods for displaying species data in a formatted table.
+ */
 class Species
 {
-    // ✅ 1️⃣ PROPERTIES
     private $id;
     private $name;
     private $description;
@@ -17,34 +18,93 @@ class Species
     private $traits;
     private $image_file;
 
-    private $dbc; // database connection
+    private $dbc;
 
-    // ✅ 2️⃣ CONSTRUCTOR (optional but useful)
+    /**
+     * Constructor method for the Species class
+     * @param mysqli $dbc - The database connection object
+     */
     public function __construct($dbc)
     {
         $this->dbc = $dbc;
     }
 
-    // ✅ 3️⃣ GETTERS AND SETTERS
+    /**
+     * Getter method for species id
+     * @return int - The species ID
+     */
     public function getId() { return $this->id; }
+    /**
+     * Setter method for species id
+     * @param mixed $id - The species ID
+     * @return void
+     */
     public function setId($id) { $this->id = $id; }
 
+    /**
+     * Getter method for species name
+     * @return string - The species name
+     */
     public function getName() { return $this->name; }
+    /**
+     * Setter method for species name
+     * @param mixed $name - The species name
+     * @return void
+     */
     public function setName($name) { $this->name = $name; }
 
+    /**
+     * Getter method for species description
+     * @return string - The species description
+     */
     public function getDescription() { return $this->description; }
+    /**
+     * Setter method for species description
+     * @param mixed $description - The species description
+     * @return void
+     */
     public function setDescription($description) { $this->description = $description; }
 
+    /**
+     * Getter method for species homeworld
+     * @return string - The species homeworld
+     */
     public function getHomeworld() { return $this->homeworld; }
+    /**
+     * Setter method for species homeworld
+     * @param mixed $homeworld - The species homeworld
+     * @return void
+     */
     public function setHomeworld($homeworld) { $this->homeworld = $homeworld; }
 
+    /**
+     * Getter method for species traits
+     * @return string - The species traits
+     */
     public function getTraits() { return $this->traits; }
+    /**
+     * Setter method for species traits
+     * @param mixed $traits - The species traits
+     * @return void
+     */
     public function setTraits($traits) { $this->traits = $traits; }
 
+    /**
+     * Getter method for species image file
+     * @return string - The species image file
+     */
     public function getImageFile() { return $this->image_file; }
+    /**
+     * Setter method for species image file
+     * @param mixed $image_file - The species image file
+     * @return void
+     */
     public function setImageFile($image_file) { $this->image_file = $image_file; }
 
-    // ✅ 4️⃣ INSERT METHOD
+    /**
+     * Insert method to add a new species to the database
+     * @return bool
+     */
     public function insert()
     {
         $query = "INSERT INTO species (name, description, homeworld, traits, image_file) VALUES (?, ?, ?, ?, ?)";
@@ -53,14 +113,22 @@ class Species
         return $stmt->execute();
     }
 
-    // ✅ 5️⃣ QUERY METHOD (return result set)
+    /**
+     * Query method to retrieve all species from the database
+     * @return bool mysqli_result - The result set from the database query
+     */
     public function queryAll()
     {
         $query = "SELECT * FROM species";
         return $this->dbc->query($query);
     }
 
-    // ✅ 6️⃣ DISPLAY METHOD (format result set into HTML table rows)
+
+    /**
+     * Display method to format the species data as a table
+     * @param mysqli_result $result - The result set from the database query
+     * @return string - The formatted HTML table rows
+    */
     public function displayAsTable($result)
     {
         $output = '';
