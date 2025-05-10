@@ -25,8 +25,8 @@
             require_once('../classes/Species.php');
             require_once('characterfileconstants.php');
         ?>
-        <div class="card">
-            <div class="card-body">
+        <div class="card" style="margin-bottom: 10%;">
+            <div class="card-body" style="margin: 0 10% 0 10%;">
                 <h1>Add a Character</h1>
                 <hr/>
                 <?php
@@ -133,6 +133,7 @@
                         $character = new Character($dbc);
                     
                         $character_image_file_path = addCharacterImageFileReturnPathLocation();
+                        $character_image_file = $_FILES['character_image_file']['name'];
                         
                         $character->setName($_POST['character_name']);
                         $character->setAge($_POST['character_age']);
@@ -157,6 +158,8 @@
                         {
                             $character_image_file_path = CDB_UPLOAD_WEB_PATH
                                     . CDB_DEFAULT_CHARACTER_FILENAME;
+                        } else {
+                            $character_image_file_path = CDB_UPLOAD_WEB_PATH . $character_image_file;
                         }
 
                         $display_add_character_form = false;
@@ -166,7 +169,7 @@
                 <h1><?= $character_name ?></h1>
                 <div class="row">
                     <div class="col-2">
-                        <img src="<?= htmlspecialchars($character_image_file_path) ?>" class="img-thumbnail"
+                        <img src="<?= $character_image_file_path ?>" class="img-thumbnail"
                                 style="max-height: 200px;" alt="Character Image">
                     </div>
                     <div class="col">
@@ -426,6 +429,7 @@
                 ?>
             </div>
         </div>
+        <?php require_once('../footer.php'); ?>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
                 crossorigin="anonymous"></script>
