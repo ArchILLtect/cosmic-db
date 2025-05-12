@@ -30,15 +30,6 @@
 
                 $sql = "SELECT name, user_name, image_file FROM user WHERE id = ?";
 
-                $dbc = mysqli_connect(  DB_HOST,
-                                        DB_USER,
-                                        DB_PASSWORD,
-                                        DB_NAME,
-                                        DB_PORT)
-                        or trigger_error('Error connecting to MySQL server for '
-                        . DB_NAME, E_USER_ERROR)
-                ;
-
                 $stmt = mysqli_prepare($dbc, $sql);
                 mysqli_stmt_bind_param($stmt, "i", $user_id);
                 mysqli_stmt_execute($stmt);

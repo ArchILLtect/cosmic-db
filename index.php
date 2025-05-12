@@ -49,15 +49,6 @@
                     require_once('fileconstants.php');
                     require_once('classes/Character.php');
                     require_once('characters/characterfileconstants.php');
-
-
-                    $dbc = mysqli_connect(  DB_HOST,
-                                            DB_USER,
-                                            DB_PASSWORD,
-                                            DB_NAME,
-                                            DB_PORT)
-                            or trigger_error('Error connecting to MySQL server for'
-                            .  DB_NAME, E_USER_ERROR);
                     
                     $character = new Character($dbc);
                     $result = $character->queryAll();
@@ -85,14 +76,6 @@
                     require_once('classes/Species.php');
                     require_once('species/speciesfileconstants.php');
                     $species = new Species($dbc);
-
-                    $dbc = mysqli_connect(  DB_HOST,
-                                            DB_USER,
-                                            DB_PASSWORD,
-                                            DB_NAME,
-                                            DB_PORT)
-                            or trigger_error('Error connecting to MySQL server for'
-                            .  DB_NAME, E_USER_ERROR);
 
                     $species = new Species($dbc);
                     /** @var mysqli_result $result */

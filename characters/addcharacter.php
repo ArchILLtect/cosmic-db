@@ -49,15 +49,6 @@
                     $traits = CDB_CHARACTER_TRAITS;
                     $skills = CDB_CHARACTER_SKILLS;
 
-                    $dbc = mysqli_connect(  DB_HOST,
-                            DB_USER,
-                            DB_PASSWORD,
-                            DB_NAME,
-                            DB_PORT)
-                        or trigger_error('Error connecting to MySQL server for '
-                        . DB_NAME, E_USER_ERROR)
-                    ;
-
                     $speciesObj = new Species($dbc);
                     /** @var mysqli_result $species */
                     $species = $speciesObj->queryAll();
@@ -120,15 +111,6 @@
                     
                     if(empty($file_error_message))
                     {
-
-                        $dbc = mysqli_connect(  DB_HOST,
-                                DB_USER,
-                                DB_PASSWORD,
-                                DB_NAME,
-                                DB_PORT)
-                            or trigger_error('Error connecting to MySQL server for '
-                            . DB_NAME, E_USER_ERROR)
-                        ;
 
                         $character = new Character($dbc);
                     

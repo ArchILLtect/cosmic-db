@@ -74,14 +74,6 @@
                         
                         if(empty($file_error_message))
                         {
-
-                        $dbc = mysqli_connect(  DB_HOST,
-                                DB_USER,
-                                DB_PASSWORD,
-                                DB_NAME,
-                                DB_PORT)
-                            or trigger_error('Error connecting to MySQL server for '
-                            . DB_NAME, E_USER_ERROR);
                         
                         $species_image_file_path = addSpeciesImageFileReturnPathLocation();
                         $species_image_file = $_FILES['species_image_file']['name'];
