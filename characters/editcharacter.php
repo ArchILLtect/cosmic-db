@@ -339,10 +339,14 @@
                                             id="character_image_file" name="character_image_file">
                                 </div>
                             </div>
-                            <button class="btn btn-primary" type="submit"
-                                    name="add_character_submission">
-                                Update Character
-                            </button>
+                            <div class="from-group d-flex justify-content-center mb-5">
+                                <button class="btn btn-primary" type="submit"
+                                        name="add_character_submission">
+                                    Update Character
+                                </button>
+                            <button type="button" class="btn btn-danger btn-secondary ml-3"
+                                    onclick="window.location.href='characterdetails.php?id=<?= $id_to_edit ?>'">Cancel</button>
+                            </div>
                             <input type="hidden" name="id_to_update"
                                     value="<?= $id_to_edit ?>">
                             <input type="hidden" name="character_image_file"

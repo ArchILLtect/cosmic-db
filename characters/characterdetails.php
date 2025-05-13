@@ -47,6 +47,22 @@
                                 E_USER_ERROR);
 
                     if (mysqli_num_rows($result) == 1):
+                        $sql = "SELECT characters.*, species.name AS species_name
+                                FROM characters
+                                LEFT JOIN character_species ON characters.character_id = character_species.character_id
+                                LEFT JOIN species ON character_species.species_id = species.species_id
+                                WHERE characters.character_id = ?";
+
+                        $stmt = mysqli_prepare($dbc, $sql);
+
+                        mysqli_stmt_bind_param($stmt, "i", $id);
+
+                        mysqli_stmt_execute($stmt);
+
+                        $result = mysqli_stmt_get_result($stmt)
+                                or trigger_error('Error querying database characters',
+                                E_USER_ERROR);
+
 
                         $row = mysqli_fetch_assoc($result);
                         
@@ -72,38 +88,42 @@
                     <div class="col">
                       <table class="table table-striped">
                         <tbody>
-                          <tr>
-                            <th scope="row">Age</th>
-                            <td><?= htmlspecialchars($row['age']) ?></td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Role</th>
-                            <td><?= htmlspecialchars($row['role']) ?></td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Personality</th>
-                            <td><?= htmlspecialchars($row['personality']) ?></td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Evo Powers</th>
-                            <td><?= htmlspecialchars($row['evo_powers']) ?></td>
-                          </tr>
-                          <tr>
-                            <th scope="row">History</th>
-                            <td><?= htmlspecialchars($row['history']) ?></td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Notes</th>
-                            <td><?= htmlspecialchars($row['notes']) ?></td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Traits</th>
-                            <td><?= htmlspecialchars($row['traits']) ?></td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Skills</th>
-                            <td><?= htmlspecialchars($row['skills']) ?></td>
-                          </tr>
+                            <tr>
+                                <th scope="row">Species</th>
+                                <td><?= htmlspecialchars($row['species_name'] ?? 'Unknown') ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Age</th>
+                                <td><?= htmlspecialchars($row['age']) ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Role</th>
+                                <td><?= htmlspecialchars($row['role']) ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Personality</th>
+                                <td><?= htmlspecialchars($row['personality']) ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Evo Powers</th>
+                                <td><?= htmlspecialchars($row['evo_powers']) ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">History</th>
+                                <td><?= htmlspecialchars($row['history']) ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Notes</th>
+                                <td><?= htmlspecialchars($row['notes']) ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Traits</th>
+                                <td><?= htmlspecialchars($row['traits']) ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Skills</th>
+                                <td><?= htmlspecialchars($row['skills']) ?></td>
+                            </tr>
                         </tbody>
                       </table>
                     </div>

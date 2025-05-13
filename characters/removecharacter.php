@@ -164,19 +164,18 @@
                     </div>
                     </div>
                     <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>">
-                        <div class="from-group row">
-                            <div class="col-sm-8">
-                                <button class="btn btn-danger" type="submit"
+                        <div class="form-group">
+                            <div class="d-flex justify-content-center mb-5">
+                                <button class="btn btn-danger btn-secondary mr-3" type="submit"
                                         name="delete_character_submission">
                                     Delete Character
                                 </button>
-                            </div>
-                            <div class="col-sm-8">
-                                <button class="btn btn-success" type="submit"
+                                <button class="btn btn-primary ml-3" type="submit"
                                         name="do_not_delete_character_submission">
                                     Don't Delete!
                                 </button>
                             </div>
+
                             <input type="hidden" name="id"
                                     value="<?= $id ?>">
                         </div>
