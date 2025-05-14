@@ -1,8 +1,8 @@
-<!--    Author: Nick Hanson
-	      Version: 0.3
-	      Date: 4/20/25
--->
 <?php
+/*  Author: Nick Hanson
+	Version: 1.0
+	Date: 4/20/25
+*/
     $required_access_level = 'admin';
     require_once('../authorizeaccess.php');
     require_once('../pagetitles.php');

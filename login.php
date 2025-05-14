@@ -1,8 +1,8 @@
-<!--    Author: Nick Hanson
-        Version: 0.1
-        Date: 4/20/25
--->
 <?php
+/*	Author: Nick Hanson
+	Version: 1.0
+	Date: 4/20/25
+*/
 	session_start();
 	require_once('pagetitles.php');
 	$page_title = CDB_LOGIN_PAGE;
@@ -56,7 +56,7 @@
                                     $_SESSION['user_access_privileges'] = $row['access_privileges'];
 
                                     // Redirect to homepage
-                                    $home_url = dirname($_SERVER['PHP_SELF']);
+									$home_url = '/index.php';
                                     header('Location: ' . $home_url);
                                     exit;
                                 }

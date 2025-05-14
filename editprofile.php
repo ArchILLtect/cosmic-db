@@ -1,7 +1,8 @@
-<!-- Author: Nick Hanson
-     Version: 0.1
-     Date: 5/10/25 -->
-     <?php
+<?php
+/*  Author: Nick Hanson
+	Version: 1.0
+	Date: 4/20/25
+*/
     require_once('authorizeaccess.php');
     require_once('pagetitles.php');
     $page_title = 'Edit Profile';

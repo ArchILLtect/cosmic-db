@@ -1,8 +1,8 @@
-<!--    Author: Nick Hanson
-	      Version: 0.3
-	      Date: 4/20/25
--->
 <?php
+/*  Author: Nick Hanson
+	Version: 1.0
+	Date: 4/20/25
+*/
     session_start();
 
     require_once('../pagetitles.php');

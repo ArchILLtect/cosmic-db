@@ -1,12 +1,13 @@
-<!--    Author: Nick Hanson
-	      Version: 0.3
-	      Date: 4/20/25
--->
-<!DOCTYPE html>
 <?php
+/*	Author: Nick Hanson
+	Version: 1.0
+	Date: 4/20/25
+*/
+
 	require_once('pagetitles.php');
 	$page_title = CDB_UNAUTHORIZED_ACCESS_PAGE;
 ?>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title><?= $page_title ?></title>

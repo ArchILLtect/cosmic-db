@@ -1,8 +1,8 @@
-<!--    Author: Nick Hanson
-        Version: 0.1
-        Date: 4/20/25
--->
 <?php
+/*  Author: Nick Hanson
+	Version: 1.0
+	Date: 4/20/25
+*/
     // Database connection constants
     define('DB_HOST', 'localhost');
     define('DB_USER', 'bdukyxmy_nick');

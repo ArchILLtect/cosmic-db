@@ -1,8 +1,8 @@
-<!--    Author: Nick Hanson
-	      Version: 0.3
-	      Date: 4/20/25
--->
 <?php
+/*  Author: Nick Hanson
+	Version: 1.0
+	Date: 4/20/25
+*/
 /** 
  * Purpose:     Parameterizes a database query.
  * 

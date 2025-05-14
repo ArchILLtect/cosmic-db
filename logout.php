@@ -1,8 +1,8 @@
-<!--    Author: Nick Hanson
-        Version: 0.1
-        Date: 4/20/25
--->
 <?php
+/*  Author: Nick Hanson
+	Version: 1.0
+	Date: 4/20/25
+*/
     session_start();
 
     // If the user is logged in, delete session variables and redirect to homepage
