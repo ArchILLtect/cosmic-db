@@ -96,7 +96,7 @@
                 ?>
                         <h3>No Species Found</h3>
                 <?php
-                    endif;           
+                    endif;
                 ?>
             </div>
         </div>

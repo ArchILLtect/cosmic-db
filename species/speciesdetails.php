@@ -46,20 +46,20 @@
                                 or trigger_error('Error querying database species',
                                 E_USER_ERROR);
 
-                    if (mysqli_num_rows($result) == 1):
+                        if (mysqli_num_rows($result) == 1):
 
-                        $row = mysqli_fetch_assoc($result);
-                        
-                        $species_image_file = $row['image_file'];
-                        
-                        if (empty($species_image_file)){
+                            $row = mysqli_fetch_assoc($result);
+                            
+                            $species_image_file = $row['image_file'];
+                            
+                            if (empty($species_image_file)){
 
-                            $species_image_file = CDB_UPLOAD_WEB_PATH
-                                    . CDB_DEFAULT_SPECIES_FILENAME;
+                                $species_image_file = CDB_UPLOAD_WEB_PATH
+                                        . CDB_DEFAULT_SPECIES_FILENAME;
 
-                        } else {
-                            $species_image_file = CDB_UPLOAD_WEB_PATH . $row['image_file'];
-                        }
+                            } else {
+                                $species_image_file = CDB_UPLOAD_WEB_PATH . $row['image_file'];
+                            }
                 ?>
                 <h2><?= htmlspecialchars($row['name']) ?></h2>
                 <div class="row">
@@ -90,8 +90,8 @@
                 </div>
                 <hr/>
                 <?php
-                  if (isset($_SESSION['user_access_privileges']) &&
-                      $_SESSION['user_access_privileges'] == 'admin'):
+                            if (isset($_SESSION['user_access_privileges']) &&
+                                $_SESSION['user_access_privileges'] == 'admin'):
                 ?>
                 <nav class='nav-link'>Feel free to
                         <a href="editspecies.php?id_to_edit=<?= $row['species_id'] ?>">Edit Details</a>
@@ -99,7 +99,7 @@
                 </nav>
                 <?php endif; ?>
                 <?php
-                    else:
+                        else:
                 ?>
                 <h3>No Species Details</h3>
                 <?php
