@@ -146,12 +146,12 @@ class Species
                 $species_image_file = CDB_DEFAULT_SPECIES_FILENAME;
             }
             $output .= "<tr>";
-            $output .= "<td><a href='/cosmic-db/species/speciesdetails.php?id={$row['species_id']}'>";
+            $output .= "<td><a href='species/speciesdetails.php?id={$row['species_id']}'>";
             $output .= "<img src='images/$species_image_file' class='img-thumbnail' style='max-height: 100px;'></a></td>";
-            $output .= "<td><a href='/cosmic-db/species/speciesdetails.php?id={$row['species_id']}'>" . htmlspecialchars($row['name']) . "</a></td>";
+            $output .= "<td><a href='species/speciesdetails.php?id={$row['species_id']}'>" . htmlspecialchars($row['name']) . "</a></td>";
             if (isset($_SESSION['user_access_privileges']) && $_SESSION['user_access_privileges'] === 'admin') {
                 $output .= "<td class='text-right align-middle'>
-                <a href='/cosmic-db/species/removespecies.php?id_to_delete={$row['species_id']}'>
+                <a href='species/removespecies.php?id_to_delete={$row['species_id']}'>
                 <i class='fas fa-trash'></i></a></td>"
             ;
             } else {

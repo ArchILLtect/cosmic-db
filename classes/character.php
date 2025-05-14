@@ -253,13 +253,13 @@ class Character
                 $character_image_file = CDB_DEFAULT_CHARACTER_FILENAME;
             }
             $output .= "<tr>";
-            $output .= "<td><a href='/cosmic-db/characters/characterdetails.php?id={$row['character_id']}'>";
+            $output .= "<td><a href='characters/characterdetails.php?id={$row['character_id']}'>";
             $output .= "<img src='images/$character_image_file' class='img-thumbnail' style='max-height: 100px;'></a></td>";
-            $output .= "<td><a href='/cosmic-db/characters/characterdetails.php?id={$row['character_id']}'>" . htmlspecialchars($row['name']) . "</a></td>";
+            $output .= "<td><a href='characters/characterdetails.php?id={$row['character_id']}'>" . htmlspecialchars($row['name']) . "</a></td>";
             $output .= "<td>" . htmlspecialchars($row['species_name']) . "</td>";
             if (isset($_SESSION['user_access_privileges']) && $_SESSION['user_access_privileges'] === 'admin') {
                 $output .= "<td class='text-right align-middle'>
-                    <a href='/cosmic-db/characters/removecharacter.php?id_to_delete={$row['character_id']}'>
+                    <a href='characters/removecharacter.php?id_to_delete={$row['character_id']}'>
                     <i class='fas fa-trash'></i></a></td>"
                 ;
             } else {

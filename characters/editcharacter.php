@@ -178,7 +178,7 @@
                                     . "</p></h5>";
                         }
                     } else { // Unintended page link - No characters to edit, link back to index
-                        header("Location: /cosmic-db/index.php");
+                        header("Location: index.php");
                         exit;
                     }
                 ?>

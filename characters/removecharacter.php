@@ -75,12 +75,12 @@
                             E_USER_ERROR)
                     ;
 
-                    header("Location: /cosmic-db/index.php");
+                    header("Location: index.php");
                     exit;
                     
                 elseif (isset($_POST['do_not_delete_character_submission'])):
 
-                    header("Location: /cosmic-db/index.php");
+                    header("Location: index.php");
                     exit;
                 
                 elseif (isset($_GET['id_to_delete'])):
@@ -188,7 +188,7 @@
                         endif;
                 else: // Unintended page link = No character to remove, go back to index
 
-                    header("Location: /cosmic-db/index.php");
+                    header("Location: index.php");
                     exit;
                 endif;
                 ?>

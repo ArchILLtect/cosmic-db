@@ -1,0 +1,5 @@
+# Never commit personal files
+Personal/
+*.docx
+*.xlsx
+*.pdf
