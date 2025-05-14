@@ -47,7 +47,7 @@
                 <?php
                     require_once('dbconnection.php');
                     require_once('fileconstants.php');
-                    require_once('classes/Character.php');
+                    require_once('classes/character.php');
                     require_once('characters/characterfileconstants.php');
                     
                     $character = new Character($dbc);
@@ -73,7 +73,7 @@
                 <?php
                     require_once('dbconnection.php');
                     require_once('fileconstants.php');
-                    require_once('classes/Species.php');
+                    require_once('classes/species.php');
                     require_once('species/speciesfileconstants.php');
                     $species = new Species($dbc);
 

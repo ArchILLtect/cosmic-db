@@ -3,7 +3,7 @@
 	      Date: 4/20/25
 -->
 <?php
-  require_once('/fileconstants.php');
+  require_once('fileconstants.php');
   $page_title = isset($page_title) ? $page_title : "";
 
   if (session_status() == PHP_SESSION_NONE)
