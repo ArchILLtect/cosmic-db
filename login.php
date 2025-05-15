@@ -19,6 +19,7 @@
 	<body>
 		<?php
             require_once('navmenu.php');
+			require_once('helpers.php');
         ?>
 		<div class="card">
 			<div class="card-body">
@@ -56,9 +57,7 @@
                                     $_SESSION['user_access_privileges'] = $row['access_privileges'];
 
                                     // Redirect to homepage
-									$home_url = '/index.php';
-                                    header('Location: ' . $home_url);
-                                    exit;
+									redirect('/index.php');
                                 }
                                 else
                                 {

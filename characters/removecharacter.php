@@ -27,6 +27,7 @@
                 <?php
                 require_once('../dbconnection.php');
                 require_once('../fileconstants.php');
+                require_once('../helpers.php');
                 require_once('characterfileconstants.php');
                 require_once('characterimagefileutil.php');
                 
@@ -75,13 +76,11 @@
                             E_USER_ERROR)
                     ;
 
-                    header("Location: index.php");
-                    exit;
+                    redirect('/index.php');
                     
                 elseif (isset($_POST['do_not_delete_character_submission'])):
 
-                    header("Location: index.php");
-                    exit;
+                    redirect('/index.php');
                 
                 elseif (isset($_GET['id_to_delete'])):
                     ?>
@@ -188,7 +187,7 @@
                         endif;
                 else: // Unintended page link = No character to remove, go back to index
 
-                    header("Location: index.php");
+                    redirect("../index.php");
                     exit;
                 endif;
                 ?>

@@ -168,8 +168,7 @@
                             
                             $nav_link = 'characterdetails.php?id=' . $id_to_update;
 
-                            header("Location: $nav_link");
-                            exit;
+                            redirect($nav_link);
                         }
                         else
                         {
@@ -178,8 +177,7 @@
                                     . "</p></h5>";
                         }
                     } else { // Unintended page link - No characters to edit, link back to index
-                        header("Location: index.php");
-                        exit;
+                        redirect('/index.php');
                     }
                 ?>
                 <div class="row">

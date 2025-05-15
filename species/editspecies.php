@@ -20,6 +20,7 @@
         <?php
             require_once('../navmenu.php');
             require_once('../fileconstants.php');
+            require_once('../helpers.php');
             require_once('speciesfileconstants.php');
         ?>
         <div class="card">
@@ -140,8 +141,7 @@
                             
                             $nav_link = 'speciesdetails.php?id=' . $id_to_update;
 
-                            header("Location: $nav_link");
-                            exit;
+                            redirect($nav_link);
                         }
                         else
                         {
@@ -150,8 +150,7 @@
                                     . "</p></h5>";
                         }
                     } else { // Unintended page link - No species to edit, link back to index
-                        header("Location: index.php");
-                        exit;
+                        redirect('index.php');
                     }
                 ?>
                 <div class="row">

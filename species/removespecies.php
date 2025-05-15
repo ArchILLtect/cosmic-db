@@ -20,6 +20,7 @@
     <body>
         <?php
             require_once('../navmenu.php');
+            require_once('../helpers.php');
         ?>
         <div class="card">
             <div class="card-body">
@@ -65,13 +66,11 @@
                             or trigger_error('Error querying database species', 
                             E_USER_ERROR);
                     
-                    header("Location: index.php");
-                    exit;
+                    redirect('index.php');
                     
                 elseif (isset($_POST['do_not_delete_species_submission'])):
 
-                    header("Location: index.php");
-                    exit;
+                    redirect('index.php');
                 
                 elseif (isset($_GET['id_to_delete'])):
                     ?>
@@ -153,8 +152,7 @@
                         endif;
                 else: // Unintended page link = No species to remove, go back to index
 
-                    header("Location: index.php");
-                    exit;
+                    redirect('index.php');
                 endif;
                 ?>
             </div>
