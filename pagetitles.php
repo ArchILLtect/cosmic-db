@@ -14,8 +14,10 @@
 
     // Main Pages
     define('CDB_HOME_PAGE', 'Cosmic Database');
+    define('CDB_NAVMENU', 'Navmenu - Cosmic Database');
     define('CDB_SIGNUP_PAGE', 'Sign Up - Cosmic Database');
     define('CDB_LOGIN_PAGE', 'Login - Cosmic Database');
+    define('CDB_EDIT_PROFILE_PAGE', 'Edit Profile - Cosmic Database');
     define('CDB_UNAUTHORIZED_ACCESS_PAGE', 'Unauthorized Access - Cosmic Database');
 
     // Species Pages

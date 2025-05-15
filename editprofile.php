@@ -5,7 +5,7 @@
 */
     require_once('authorizeaccess.php');
     require_once('pagetitles.php');
-    $page_title = 'Edit Profile';
+    $page_title = CDB_EDIT_PROFILE_PAGE;
 
     require_once('dbconnection.php');
     require_once('fileconstants.php'); // optional if you have upload path/constants
