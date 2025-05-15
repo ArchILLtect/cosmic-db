@@ -66,11 +66,11 @@
                             or trigger_error('Error querying database species', 
                             E_USER_ERROR);
                     
-                    redirect('index.php');
+                    redirect('/index.php');
                     
                 elseif (isset($_POST['do_not_delete_species_submission'])):
 
-                    redirect('index.php');
+                    redirect('/index.php');
                 
                 elseif (isset($_GET['id_to_delete'])):
                     ?>

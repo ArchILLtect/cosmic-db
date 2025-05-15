@@ -150,7 +150,7 @@
                                     . "</p></h5>";
                         }
                     } else { // Unintended page link - No species to edit, link back to index
-                        redirect('index.php');
+                        redirect('/index.php');
                     }
                 ?>
                 <div class="row">

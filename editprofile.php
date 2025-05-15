@@ -131,7 +131,7 @@
                 <div class="d-flex justify-content-center mb-5">
                     <button type="submit" class="btn btn-primary mr-3">Update Profile</button>
                     <button type="button" class="btn btn-danger btn-secondary ml-3"
-                            onclick="window.location.href='index.php'">Cancel</button>
+                            onclick="window.location.href='/index.php'">Cancel</button>
                 </div>
 
             </form>
