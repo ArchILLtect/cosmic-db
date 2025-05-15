@@ -21,6 +21,7 @@
         <?php
             require_once('../navmenu.php');
             require_once('../fileconstants.php');
+            require_once('../helpers.php');
             require_once('characterfileconstants.php');
 
         ?>
@@ -166,7 +167,7 @@
                             
                             mysqli_stmt_execute($stmt);
                             
-                            $nav_link = 'characterdetails.php?id=' . $id_to_update;
+                            $nav_link = '/characters/characterdetails.php?id=' . $id_to_update;
 
                             redirect($nav_link);
                         }
