@@ -152,7 +152,7 @@
                         endif;
                 else: // Unintended page link = No species to remove, go back to index
 
-                    redirect('index.php');
+                    redirect('/index.php');
                 endif;
                 ?>
             </div>
