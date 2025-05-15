@@ -22,7 +22,7 @@
             require_once('../dbconnection.php');
             require_once('../fileconstants.php');
             require_once('../classes/character.php');
-            require_once('../classes/Species.php');
+            require_once('../classes/species.php');
             require_once('characterfileconstants.php');
         ?>
         <div class="card" style="margin-bottom: 10%;">
